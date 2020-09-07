@@ -1,0 +1,46 @@
+.onShow,.onFocus,.onError,.onCorrect,.onLoad{background:url(../images/reg_bg.png) no-repeat 3000px 3000px;padding-left:30px; font-size: 12px; height:25px; width:155px; display:inline-block; line-height:25px; vertical-align:middle; overflow:hidden; margin-left:6px}
+.onShow{color:#999; padding-left:0px}
+.onCorrect{background-position:0px 0; text-indent:-9000px}
+.onLoad
+{
+    background:#E9FFEB url(../images/onLoad.gif) no-repeat 3px 3px;
+    padding-left:25px;
+	font-size: 12px;
+	line-height:22px; 
+	vertical-align:middle;
+} 
+
+.onError .onFocus p
+{
+	list-style-type:none;
+	list-style-image:none;
+	line-height : 2;
+}
+.onError .onFocus span
+{
+	color : #999;
+	font-size : 12px;
+}
+.onFocus{
+	background-position:0px -30px; color:#333
+}
+.onError{ 
+	background-position:0px -60px; color:#333
+}
+
+.input_public
+{
+	border:#C1C1C1 1px solid;font-size:14px;line-height:20px; height:26px;padding-left:4px;
+}
+
+.input_error {
+	
+	background-color:#FBE2E2;border-color:#D28C8C;color:#A63B3B
+}
+
+.input_focus {
+    background-color:#FFC;border-color:#C6C69E
+}
+.input_correct {
+	background-color:#FBFBFB;color:#444
+}

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"
+       default-lazy-init="true">
+
+    <description>redis configuration</description>
+
+    <bean class="com.qweib.cloud.biz.system.support.InRedisTokenServerAdapter"/>
+
+    <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <property name="maxIdle" value="${jedis.pool.maxIdle}"/>
+        <property name="maxTotal" value="${jedis.pool.maxTotal}"/>
+        <property name="maxWaitMillis" value="${jedis.pool.maxWaitMillis}"/>
+        <property name="minIdle" value="${jedis.pool.minIdle}"/>
+        <property name="testOnBorrow" value="false"/>
+        <property name="testOnReturn" value="false"/>
+        <property name="blockWhenExhausted" value="true"/>
+        <property name="testWhileIdle" value="true"/>
+        <property name="jmxEnabled" value="true"/>
+    </bean>
+
+    <bean id="connectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+        <property name="hostName" value="${redis.host}"/>
+        <property name="port" value="${redis.port}"/>
+        <property name="database" value="${redis.database}"/>
+        <property name="password" value="${redis.password}"/>
+        <property name="timeout" value="10000"/>
+        <property name="usePool" value="true"/>
+        <property name="poolConfig" ref="jedisPoolConfig"/>
+    </bean>
+
+    <bean id="stringRedisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate">
+        <property name="connectionFactory" ref="connectionFactory"/>
+    </bean>
+
+    <bean id="confStringRedisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate">
+        <property name="connectionFactory" ref="memberConnectionFactory"/>
+    </bean>
+
+    <bean primary="true" id="jsonRedisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+        <property name="keySerializer" ref="stringRedisSerializer"/>
+        <property name="valueSerializer" ref="jsonRedisSerializer"/>
+        <property name="connectionFactory" ref="connectionFactory"/>
+    </bean>
+
+    <bean id="stringRedisSerializer" class="org.springframework.data.redis.serializer.StringRedisSerializer"/>
+
+    <bean id="jsonMapper" class="com.qweib.cloud.biz.system.support.TokenObjectMapper"/>
+
+    <!--不存在的属性禁止失败-->
+    <bean id="jsonRedisSerializer"
+          class="org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer">
+        <constructor-arg ref="jsonMapper"/>
+    </bean>
+
+    <bean id="memberConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+        <property name="hostName" value="${redis.host}"/>
+        <property name="port" value="${redis.port}"/>
+        <property name="database" value="${redis.node_db}"/>
+        <property name="password" value="${redis.password}"/>
+        <property name="timeout" value="10000"/>
+        <property name="usePool" value="true"/>
+        <property name="poolConfig" ref="jedisPoolConfig"/>
+    </bean>
+
+    <bean id="memberRedisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+        <property name="keySerializer" ref="stringRedisSerializer"/>
+        <property name="valueSerializer" ref="fstRedisSerializer"/>
+        <property name="connectionFactory" ref="memberConnectionFactory"/>
+    </bean>
+
+    <bean id="fstRedisSerializer" class="com.qweibframework.commons.redis.FstRedisSerializer"/>
+
+    <bean class="org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration">
+        <property name="defaultRedisSerializer" ref="jsonRedisSerializer"/>
+        <property name="maxInactiveIntervalInSeconds" value="3600"/>
+    </bean>
+
+    <!--mock spring session filter: do nothing!-->
+    <!--    <bean class="com.qweib.cloud.biz.system.support.InMemoryTokenServerAdapter"/>
+        <bean name="springSessionRepositoryFilter" class="com.qweib.cloud.web.MockSpringSessionRepositoryFilter"/>-->
+
+    <bean id="redisMessageListener" class="com.qweib.cloud.biz.mall.weixin.util.RedisMessageListener">
+        <property name="redisTemplate" ref="jsonRedisTemplate"/>
+    </bean>
+
+    <bean id="userRoleChangedEventListener" class="com.qweib.cloud.biz.system.auth.event.UserRoleChangedEventListener"/>
+    <bean id="cloudMenuChangedEventListener"
+          class="com.qweib.cloud.biz.system.auth.event.CloudMenuChangedEventListener"/>
+
+    <bean id="redisContainer" class="org.springframework.data.redis.listener.RedisMessageListenerContainer">
+        <property name="connectionFactory" ref="connectionFactory"/>
+        <property name="messageListeners">
+            <map>
+                <entry key-ref="redisMessageListener">
+                    <list>
+                        <bean class="org.springframework.data.redis.listener.ChannelTopic">
+                            <constructor-arg value="weixinMallMemberMsgMap"/>
+                        </bean>
+                    </list>
+                </entry>
+                <entry key-ref="userRoleChangedEventListener">
+                    <bean class="org.springframework.data.redis.listener.ChannelTopic">
+                        <constructor-arg value="user:permission:evict"/>
+                    </bean>
+                </entry>
+                <entry key-ref="cloudMenuChangedEventListener">
+                    <bean class="org.springframework.data.redis.listener.ChannelTopic">
+                        <constructor-arg value="menu:map:refresh"/>
+                    </bean>
+                </entry>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="logCache" class="com.qweib.cloud.factory.LogCacheFactory">
+        <property name="maximumSize" value="${log.cache.maximum-size}"/>
+        <property name="expireAfterAccess" value="${log.cache.expire-after-access}"/>
+    </bean>
+
+    <bean id="tokenGenerator" class="com.qweibframework.commons.redis.token.TokenGenerator"/>
+</beans>

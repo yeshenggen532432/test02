@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+        xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:p="http://www.springframework.org/schema/p"
+        xmlns:context="http://www.springframework.org/schema/context"
+        xmlns:aop="http://www.springframework.org/schema/aop"
+        xmlns:task="http://www.springframework.org/schema/task"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.0.xsd">
+
+    <bean id="rongCloud" class="com.qweib.cloud.support.rongcloud.RongCloudApiFactory">
+        <property name="appKey" value="k51hidwqkvlwb"/>
+        <property name="appSecret" value="Kaffj93FJubyi6"/>
+    </bean>
+
+    <bean class="com.qweib.cloud.support.rongcloud.RongCloudTemplate">
+        <constructor-arg ref="rongCloud"/>
+    </bean>
+
+    <bean id="imApiRetrofit" class="com.qweibframework.commons.http.RetrofitFactory">
+        <property name="appKey" value="${service.access-key}"/>
+        <property name="baseUrl" value="${service.client.im.url}"/>
+    </bean>
+
+    <bean id="messageApi" class="com.qweibframework.commons.http.RetrofitServiceFactory">
+        <property name="retrofit" ref="imApiRetrofit"/>
+        <property name="clazz" value="com.qweib.im.api.MessageApi"/>
+    </bean>
+    <bean id="userApi" class="com.qweibframework.commons.http.RetrofitServiceFactory">
+        <property name="retrofit" ref="imApiRetrofit"/>
+        <property name="clazz" value="com.qweib.im.api.UserApi"/>
+    </bean>
+    <bean id="serviceApi" class="com.qweibframework.commons.http.RetrofitServiceFactory">
+        <property name="retrofit" ref="imApiRetrofit"/>
+        <property name="clazz" value="com.qweib.im.api.ServiceApi"/>
+    </bean>
+</beans>
+
+

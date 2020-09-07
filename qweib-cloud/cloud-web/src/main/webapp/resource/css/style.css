@@ -1,0 +1,136 @@
+﻿@charset "utf-8";
+/**通用**/
+body{ font-size:12px; font-family:Arial, "宋体";}
+body,p,h1,h2,h3,h4,h5,h6,dd,dl,dt,form,th,td,ul,li,ol,input,select,textarea,button{ margin:0;padding:0;}
+input,select,textarea{font-family:Arial, Helvetica, sans-serif; font-size:12px; vertical-align:middle;padding-left: 3px;}
+table{border-collapse:collapse;border-spacing:0;font-size:12px; font-family:Arial, "宋体";}
+img{ border:0;}
+em,i{font-style:normal;}
+ul,ol{list-style-type:none;}
+/**登录**/
+.login_bg{ }
+.login{  width:614px; height:202px; margin:0px auto; margin-top:150px; padding-top:90px;}
+.input_text{ background:url(../images/input_bg.gif) no-repeat; width:236px; height:34px; padding:2px;}
+.input_text:hover{ background:url(../images/input_bg_hover.gif) no-repeat;}
+/**.input_text input{height:20px; line-height:20px; padding:7px 2px; width:230px; border:none; color:#333; font-size:14px;}*/
+.login_table{  margin-left:100px;}
+.login_table th,.login_table td{ height:48px; line-height:48px;vertical-align: middle;}
+.login_table th{ font-size:14px; font-family:"微软雅黑", "宋体"; color:#333;}
+.btn1{ background:url(../images/login.jpg) no-repeat; width:107px; height:39px; border:none; cursor:pointer; margin-right:5px;padding-right: 10px}
+.btn2{ background:url(../images/regis.jpg) no-repeat; width:107px; height:39px; border:none; cursor:pointer;margin-right:5px;}
+.l_button,.r_button{background:url(../images/login_button.png) no-repeat; width:118px; height:39px; border:none; cursor:pointer; display:block; float:left; text-indent:-9000px}
+.b_button{background:url(../images/back.png) no-repeat; width:118px; height:39px; border:none; cursor:pointer; display:block; float:left; text-indent:-9000px;background-position:0 -60px;}
+.s_button{background:url(../images/s.png) no-repeat; width:118px; height:39px; border:none; cursor:pointer; display:block; float:left; text-indent:-9000px;background-position:0 -60px;}
+.l_button{background-position:0 -60px;}
+.r_button{background-position:-138px -60px; margin-right:4px}
+.l_button:hover,.b_button:hover,.s_button:hover{background-position:0 0;}
+.r_button:hover{background-position:-138px 0;}
+.input_public{
+	background:url(../images/input_bg.gif) no-repeat;
+	width:236px;
+}
+
+.f_reg_but{margin:10px 0 0 115px}
+.box{width:90%; font-size:14px;line-height:25px; overflow:hidden;font-family:"Microsoft YaHei",宋体;}
+.box dl{padding-left:10px; font-size:14px;}
+.box dl dt{ margin-top:15px; border-bottom:1px dotted #ccc; padding-bottom:5px; margin-bottom:10px; color:#005da0;}
+.box dl dd{padding:3px 0}
+.box .title{width:138px; display:inline-block; text-align:right; padding-right:10px}
+.titleInput{ width: 150px;border: 1px solid #CCCCCC;border-left-width:0;border-right-width:0;border-top-width:0;background: none;color: rgb(14,45,95);font-weight: bold;font-size: 12;}
+.id input,.pw input,.in_id,.in_mo,.reg_input,.reg_input_pic{-moz-border-radius:4px;-webkit-border-radius:4px;border-radius:4px; height:25px;line-height:25px;border: 1px solid rgb(193, 193, 193);}
+.reg_input_pic{width:80px;}
+.in_pic_s{margin-left:83px}
+.box .img{position:absolute}
+.reg_m{margin-left:90px}
+dd select{
+	border: 1px solid rgb(193, 193, 193);
+	font-size: 14px;
+	line-height: 18px;
+	height: 20px;
+	padding-left: 4px;
+}
+/**版权**/
+.copyright{ text-align:center; padding:10px; color:#fff;}
+/**头部**/
+.head{
+	text-align:right;
+	width:100%;
+	height:58px;
+	background: url('../images/headbg.jpg') repeat-x;
+}
+/**底部**/
+.bottom{
+	margin-top:2px;
+	text-align:center;
+	width:100%;
+	height:30px;
+	line-height: 30px;
+	color:white;
+	background: url('../images/bottom.jpg') repeat-x;
+}
+/**通用表格**/
+#opertable{
+	margin:10px;
+}
+#opertable tr{
+	height: 28px;
+}
+#opertable th{
+	font-weight: normal;
+	width: 120px;
+	text-align: right;
+	border:1px solid #DCE4E5;
+}
+#opertable td{
+	border:1px solid #DCE4E5;
+	padding: 5px;
+}
+#opertable input,#opertable select{
+	width:180px;
+	height: 20px;
+	line-height: 18px;
+	padding-left: 5px;
+}
+#opertable .radio{
+	width:15px;
+	height: auto;
+}
+#opertable .addr{
+	width:528px;
+	height: 20px;
+	line-height: 18px;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+#opertable textarea{
+	width:528px;
+	height: 136px;
+	padding: 5px;
+}
+/**菜单树**/
+.leftbar{width:100%;}
+.leftbar dt{ background:url(../images/title_bg.gif) repeat-x; height:21px; padding-left:5px;}
+.leftbar dd{ line-height:25px; height:25px; border-bottom:1px dotted #ccc; padding-left: 5px;}
+.leftbar dd a{ color:#2a2a2a; text-decoration:none; padding-left:22px; display:block; background:url(../images/icon.gif) no-repeat left center; height:16px; line-height:16px; margin-top:6px;}
+.leftbar .dd1 a{ background-position: 0px -0px;}
+.leftbar .dd2 a{ background-position: 0px -16px;}
+.leftbar .dd3 a{ background-position: 0px -32px;}
+.leftbar .dd4 a{ background-position: 0px -48px}
+.leftbar .dd5 a{ background-position: 0px -64px}
+.leftbar .dd6 a{ background-position: 0px -80px}
+.leftbar .dd7 a{ background-position: 0px -96px}
+.leftbar .dd8 a{ background-position: 0px -112px}
+.leftbar .dd9 a{ background-position: 0px -128px}
+.leftbar .dd10 a{ background-position:0px -144px}
+.leftbar .dduser a{ color:#2a2a2a; text-decoration:none; padding-left:22px; display:block; background:url(../images/user.png) no-repeat left center; height:16px; line-height:16px; padding-top:5px;margin: 0;}
+.leftbar .dduser:hover{background-color: #D1EEEE;}
+.accordion .accordion-header-selected {background: url(../images/title_bg.gif) repeat-x scroll 0% 0%;filter: none;}
+.btn{ background:url(../images/btnBg.gif) no-repeat; width:49px; height:22px;_height:23px;line-height:22px; border:none; cursor:pointer; margin-right:5px;display:inline-block;text-align:center; vertical-align:middle;}
+.btnBig{ background:url(../images/btnBgBig.gif) no-repeat; width:60px; height:22px;_height:23px;line-height:22px; border:none; cursor:pointer; margin-right:5px;display:inline-block;text-align:center; vertical-align:middle;}
+.btn02{ background:url(../images/btnBg.png) repeat-x; height:22px;line-height:22px; border:1px solid #DCDEDF; color:#FFF; padding:0 4px;display:inline-block;text-align:center; vertical-align:middle;}
+.btn04{ background:url(../images/btn4.png) no-repeat; width:70px; height:22px;_height:23px;line-height:22px; border:none; cursor:pointer; margin-right:5px;display:inline-block;text-align:center; vertical-align:middle;}
+.addMenu li.remark textarea{border:1px solid #B7BBBE; padding:3px; width:610px; height:102px; vertical-align:top; overflow:auto;}
+.addMenu{padding:10px 0 10px 0;}
+.addMenu li{ margin-bottom:5px;}
+.addMenu li label{display:inline-block; width:120px; text-align:right;}
+ input[type=button]:hover,input[type=button]:active{background-color:skyblue;-webkit-appearance: none; resize: none; outline: 0}

@@ -1,0 +1,218 @@
+{
+  "master": [
+    {
+      "field": "address",
+      "title": "配送地址"
+    },
+    {
+      "field": "tel",
+      "title": "联系电话"
+    },
+    {
+      "field": "pszd",
+      "title": "配送指定"
+    },
+    {
+      "field": "stkName",
+      "title": "出货仓库"
+    },
+    {
+      "field": "staff",
+      "title": "业务员"
+    },
+    {
+      "field": "stafftel",
+      "title": "业务员联系电话"
+    },
+    {
+      "field": "discount",
+      "title": "整单折扣"
+    },
+    {
+      "field": "disamt",
+      "title": "发票金额"
+    },
+    {
+      "field": "totalamt",
+      "title": "合计金额"
+    },
+    {
+      "field": "vehId",
+      "title": "车辆"
+    },
+    {
+      "field": "driverId",
+      "title": "司机"
+    },
+    {
+      "field": "transportName",
+      "title": "物流名称"
+    },
+    {
+      "field": "transportCode",
+      "title": "物流单号"
+    },
+    {
+      "field": "freight",
+      "title": "代收运费"
+    }
+  ],
+  "other": [
+    {
+      "field": "enterSubmit",
+      "title": "回车提交暂存",
+      "hidden": true
+    },
+    {
+      "field": "quickAdd",
+      "title": "快速添加商品"
+    },
+    {
+      "field": "checkProduct",
+      "title": "商品校验"
+    },
+    {
+      "field": "changeOrderPrice",
+      "title": "审批影响订单商品价格"
+    },
+    {
+      "field": "wareXsPrice",
+      "title": "同步价格至商品信息"
+    },
+    {
+      "field": "loadStock",
+      "title": "加载占用库存"
+    },
+    {
+      "field": "effectOrderPrice",
+      "title": "同步至客户执行价",
+      "hidden": true
+    }
+  ],
+  "slave": [
+    {
+      "field": "wareCode",
+      "title": "产品编号",
+      "reserved": false,
+      "width": 120
+    },
+    {
+      "field": "packBarCode",
+      "title": "大单位条码",
+      "reserved": false,
+      "width": 120
+    },
+    {
+      "field": "beBarCode",
+      "title": "小单位条码",
+      "reserved": false,
+      "width": 120
+    },
+    {
+      "field": "wareNm",
+      "title": "产品名称",
+      "reserved": true,
+      "width": 180
+    },
+    {
+      "field": "wareGg",
+      "title": "产品规格",
+      "reserved": false,
+      "width": 100
+    },
+    {
+      "field": "xsTp",
+      "title": "销售类型",
+      "reserved": false,
+      "width": 100
+    },
+    {
+      "field": "beUnit",
+      "title": "单位",
+      "reserved": true,
+      "width": 80
+    },
+    {
+      "field": "qty",
+      "title": "销售数量",
+      "reserved": true,
+      "width": 100
+    },
+    {
+      "field": "price",
+      "title": "单价",
+      "reserved": true,
+      "width": 100
+    },
+    {
+      "field": "amt",
+      "title": "销售金额",
+      "reserved": true,
+      "width": 120
+    },
+    {
+      "field": "rebatePrice",
+      "title": "应付返利单价",
+      "reserved": false,
+      "width": 150
+    },
+    {
+      "field": "productDate",
+      "title": "生产日期",
+      "reserved": false,
+      "width": 130
+    },
+    {
+      "field": "bUnitSummary",
+      "title": "件数",
+      "reserved": false,
+      "width": 80
+    },
+    {
+      "field": "activeDate",
+      "title": "有效期",
+      "reserved": false,
+      "width": 80
+    },
+    {
+      "field": "remarks",
+      "title": "备注",
+      "reserved": false,
+      "width": 80
+    },
+    {
+      "field": "sunitQty",
+      "title": "小单位数量",
+      "reserved": false,
+      "width": 80,
+      "hidden": true
+    },
+    {
+      "field": "sunitJiage",
+      "title": "小单位价格",
+      "reserved": false,
+      "width": 80,
+      "hidden": true
+    },
+    {
+      "field": "helpQty",
+      "title": "辅助销售数量",
+      "reserved": false,
+      "width": 80,
+      "hidden": true
+    },
+    {
+      "field": "helpUnit",
+      "title": "辅助销售单位",
+      "reserved": false,
+      "width": 80,
+      "hidden": true
+    },
+    {
+      "field": "op",
+      "title": "操作",
+      "reserved": true,
+      "width": 100
+    }
+  ]
+}

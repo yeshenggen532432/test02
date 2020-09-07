@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+        xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:p="http://www.springframework.org/schema/p"
+        xmlns:context="http://www.springframework.org/schema/context"
+        xmlns:aop="http://www.springframework.org/schema/aop"
+        xmlns:task="http://www.springframework.org/schema/task"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.0.xsd">
+
+   <task:executor id="asyncExecutor" keep-alive="3600" pool-size="100-200" queue-capacity="500"
+                   rejection-policy="CALLER_RUNS"/>
+
+    <task:annotation-driven executor="asyncExecutor"/>
+
+</beans>
+
+        <!--
+        <?xml version="1.0" encoding="utf-8" ?>
+        <beans xmlns="http://www.springframework.org/schema/beans"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:task="http://www.springframework.org/schema/task"
+               xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+            <task:executor id="asyncExecutor" pool-size="5" keep-alive="60" queue-capacity="50" rejection-policy="ABORT"/>
+
+            <bean class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+                <property name="corePoolSize" value="1"/>
+                <property name="maxPoolSize" value="10"/>
+                <property name="queueCapacity" value="50"/>
+                <property name="allowCoreThreadTimeOut" value="false"/>
+                <property name="threadNamePrefix" value="core"/>
+                <property name="keepAliveSeconds" value="60"/>
+            </bean>
+        </beans>-->

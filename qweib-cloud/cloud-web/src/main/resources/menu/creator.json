@@ -1,0 +1,44 @@
+[
+  {
+    "id_key": 10000,
+    "menu_nm": "创建者管理",
+    "menu_cd": "company_creator",
+    "data_tp": "1",
+    "menu_leaf": "1",
+    "menu_url": "",
+    "menu_cls": "",
+    "apply_no": 30,
+    "menu_tp": "0",
+    "p_id": 0,
+    "children": [
+      {
+        "id_key": 10001,
+        "menu_nm": "基础管理",
+        "menu_cd": "creator_basic",
+        "data_tp": "1",
+        "menu_leaf": "1",
+        "menu_url": "",
+        "menu_cls": "",
+        "apply_no": 30,
+        "menu_tp": "0",
+        "p_id": 10000,
+        "children": [
+          {
+            "id_key": 10002,
+            "menu_nm": "指定创建者",
+            "menu_cd": "creator_member",
+            "data_tp": "1",
+            "menu_leaf": "1",
+            "menu_url": "company/role/admin/setCreator",
+            "menu_cls": "",
+            "apply_no": 30,
+            "menu_tp": "0",
+            "p_id": 10001,
+            "children": [
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

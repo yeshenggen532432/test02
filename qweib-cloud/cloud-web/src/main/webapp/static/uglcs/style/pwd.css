@@ -1,0 +1,130 @@
+.passwordTipClass {
+    min-width: 400px;
+    max-width: 400px;
+}
+.ti-tooltip-right-top::before {
+    display: block;
+    position: absolute;
+    border-left: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    content: '';
+    width: 10px;
+    height: 10px;
+    top: 9px;
+    overflow: hidden;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+    left: -5px;
+    background: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+.ti-tooltip {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    color: #666;
+    padding: 9px;
+    border: 1px solid #eee;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+    border-radius: 2px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+    z-index: 5000;
+    white-space: normal;
+    word-wrap: break-word;
+    font-size: 14px;
+}
+
+
+.passwordStrength {
+    background: #CCC;
+    display: block;
+    text-align: center;
+    float: right;
+    font-size: 14px;
+    line-height: 20px;
+    color: #FFF;
+    border-radius: 2px;
+    height: 12px;
+    margin-left: 2px;
+    margin-right: 2px;
+    margin-top: 2px;
+    width: 42px
+}
+
+.passwordStrength {
+    height: 12px;
+    margin-left: 2px;
+    margin-right: 2px;
+    margin-top: 2px;
+    width: 43px;
+}
+.passwordStrengthField {
+    display: inline-block;
+    clear: both;
+    float: left;
+    width: 260px;
+    margin-top: 3px
+}
+
+.passwordNone {
+    background: #DCDCDC;
+    border-radius: 2px
+}
+.passwordHigh {
+    background: #0A9E00;
+    border-radius: 2px
+}
+
+.passwordMid {
+    background: #FF6A00;
+    border-radius: 2px
+}
+
+.passwordLow {
+    background: #E41E2B;
+    border-radius: 2px
+}
+
+.passwordcontentstyle, .passwordlenstyle {
+    line-height: 10%;
+    display: inline-block;
+    width: 100%;
+    margin-top: 3%
+}
+
+.clearfix:after, .clearfix:before {
+    content: '';
+    display: block;
+    clear: both;
+    visibility: hidden
+}
+
+.tootip-img {
+    width: 16px;
+    height: 16px;
+    margin: 0 auto 3px 0
+}
+
+.tootip-div {
+    margin: -19px 0 10px 20px
+}
+
+.layui-form-item .layui-input-inline{
+    width: 230px;
+}
+.password-validation{
+    line-height: 16px;
+}
+.password-validation span{
+    height: 12px;
+}
+.layui-form-item.new-password{
+    margin-bottom: 1px;
+}
+

@@ -1,0 +1,236 @@
+a {
+  text-decoration: none;
+  cursor: pointer;
+  color: #000000;
+}
+.chose_people {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  background: #f5f5f5;
+  overflow-y: scroll;
+}
+
+.pcl_chose_people {
+  background: none;
+  display: none;
+}
+.pcl_chose_people .mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  opacity: .6;
+}
+.pcl_chose_people .cp_list {
+  width: 810px;
+  margin: 50px auto;
+  position: relative;
+  z-index: 999;
+  background: #fff;
+}
+.pcl_chose_people .cp_list table {
+  width: 100%;
+}
+.pcl_chose_people .cp_list tr:hover {
+  background: #f5fafc;
+}
+.pcl_chose_people .cp_list td {
+  font-size: 12px;
+  padding: 14px;
+  border: 1px solid #e6e6e6;
+  cursor: pointer;
+}
+.pcl_chose_people .cp_list td .bule_col {
+  color: #00a6fb;
+}
+
+
+.cp_list2 {
+  width: 810px;
+  margin: 50px auto;
+  position: relative;
+  z-index: 999;
+  background: #fff;
+}
+.cp_list2 .pcl_box_left {
+  padding-left: 100px;
+}
+.cp_list2 .cp_src {
+  text-align: left;
+}
+.cp_list2 .cp_src_box {
+  width: 340px;
+}
+.cp_list2 .cp_btn2 {
+  width: 100px;
+  height: 40px;
+  color: #00a6fb;
+  font-size: 14px;
+  background: #fff;
+  border-radius: 5px;
+  margin-left: 10px;
+  border: 1px solid #00a6fb;
+}
+.cp_list2 .cp_btn_box {
+  padding-bottom: 13px;
+}
+.cp_list2 .cp_btn_box a {
+  display: inline-block;
+  width: 116px;
+  height: 30px;
+  text-align: center;
+  line-height: 30px;
+  border: 1px solid #f2f2f2;
+  margin-right: 19px;
+  font-size: 14px;
+}
+.cp_list2 .cp_btn_box a.on {
+  color: #ff5000;
+  border: 1px solid #ff5000;
+}
+.cp_list2 .pcl_3box1 {
+  padding-bottom: 20px;
+}
+.cp_list2 .pcl_table {
+  width: 100%;
+}
+.cp_list2 .pcl_table thead td {
+  text-align: center;
+  font-size: 12px;
+  color: #333;
+  padding: 15px 0;
+  background-color: #efefef;
+  background: -webkit-linear-gradient(top, #f9f9f9 0, #efefef 100%);
+  background: -moz-linear-gradient(top, #f9f9f9 0, #efefef 100%);
+  background: -o-linear-gradient(top, #f9f9f9 0, #efefef 100%);
+  background: linear-gradient(to bottom, #f9f9f9 0, #efefef 100%);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#f9f9f9, endColorstr=#efefef, GradientType=0);
+  border: 1px solid #c9c9c9;
+}
+.cp_list2 .pcl_table tbody td {
+  text-align: center;
+  font-size: 12px;
+  color: #333;
+  padding: 15px 0;
+  border: 1px solid #e6e6e6;
+}
+.cp_list2 .pcl_3box2 {
+  width: 225px;
+  border: 1px solid #e6e6e6;
+  display: inline-block;
+  margin: 0 15px;
+  padding-bottom: 10px;
+}
+.cp_list2 .pcl_3box2 h2 {
+  text-align: center;
+  background: #eaf7fe;
+  font-size: 14px;
+  padding: 14px 0;
+  font-weight: normal;
+}
+.cp_list2 .pcl_3box2 .pcl_l2 {
+  padding-left: 60px;
+}
+.cp_list2 .pcl_3box2 .pcl_l2 a {
+  display: block;
+  padding-left: 20px;
+  background: url(../img/icon_f1.jpg) no-repeat 0 2px;
+  margin: 5px 0;
+  font-size: 14px;
+}
+.cp_list2 .pcl_3box2 .pcl_l2 a:hover {
+  color: #ff5000;
+}
+.cp_list2 .pcl_infinite {
+  font-size: 14px;
+}
+.cp_list2 .pcl_infinite p {
+  font-size: 14px;
+  padding-left: 20px;
+  background: url(../img/close_icon.png) no-repeat 0 3px;
+  position: relative;
+  cursor: pointer;
+}
+.cp_list2 .pcl_infinite p:hover {
+  color: #ff5000;
+}
+.cp_list2 .pcl_infinite p.open {
+  background: url(../img/open_icon.png) no-repeat 0 3px;
+}
+.cp_list2 .pcl_infinite p i {
+  display: block;
+  position: absolute;
+  left: -15px;
+  top: 6px;
+  width: 6px;
+  height: 6px;
+  background: url(../img/icon_arrow.jpg) no-repeat;
+}
+.cp_list2 .pcl_infinite .pcl_file {
+  padding-left: 20px;
+  display: none;
+}
+.pcl_switch {
+  padding-bottom: 20px;
+  display: none;
+}
+.pcl_switch .pcl_rf_box {
+  width: 550px;
+  float: right;
+}
+
+.clearfix:after {
+  clear: both;
+  content: '';
+  display: block;
+  font-size: 0;
+  line-height: 0;
+  visibility: hidden;
+  width: 0;
+  height: 0;
+}
+.clearfix {
+  *display: inline-block;
+}
+*html.clearfix {
+  height: 1%;
+}
+
+.cp_src_box {
+  display: inline-block;
+  width: 445px;
+  height: 38px;
+  border: 1px solid #ddd;
+  padding-left: 50px;
+  position: relative;
+}
+.cp_src_box input {
+  width: 100%;
+  height: 100%;
+}
+.cp_src_box img {
+  position: absolute;
+  top: 10px;
+  left: 20px;
+}
+
+.cp_src {
+  text-align: center;
+  padding: 10px 0;
+}
+.cp_src .cp_btn {
+  width: 100px;
+  height: 40px;
+  color: #fff;
+  font-size: 14px;
+  background: #00a6fb;
+  border-radius: 5px;
+  margin-left: 10px;
+}

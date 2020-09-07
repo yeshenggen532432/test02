@@ -1,0 +1,220 @@
+stages:
+  - build
+  - build-dev2
+  - deploy-dev2
+  - package
+  - deploy
+  - build-beta
+  - build-prod
+  - deploy-prod
+  - deploy-beta
+  - build-standalone
+  - deploy-standalone
+
+image: docker:stable
+
+#docker-build-dev:
+#  image: registry.staging.qweib.com/qweib/maven-dind:3.6.0-jdk-8
+#  stage: build
+#  script:
+#    # 生产环境打包
+#    - mvn clean -P dev -DskipTests deploy
+#    # 登录 docker-registry
+#    - docker login $DOCKER_REGISTRY -u $DOCKER_REGISTRY_USERNAME -p $DOCKER_REGISTRY_PASSWORD
+#    # 构建本次commit hash的docker镜像
+#    - docker build -t $DOCKER_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:$CI_COMMIT_SHORT_SHA .
+#    # 推送docker镜像到 docker-registry
+#    - docker push $DOCKER_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:$CI_COMMIT_SHORT_SHA
+#  tags:
+#    - maven
+#  only:
+#    - dev
+#  when: manual
+
+docker-build-dev2:
+  image: registry.staging.qweib.com/qweib/maven-dind:3.6.0-jdk-8
+  stage: build-dev2
+  script:
+    # 生产环境打包
+    - mvn clean -P dev2 -DskipTests deploy
+    # 登录 docker-registry
+    - docker login $DOCKER_REGISTRY -u $DOCKER_REGISTRY_USERNAME -p $DOCKER_REGISTRY_PASSWORD
+    # 构建本次commit hash的docker镜像
+    - docker build -t $DOCKER_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME-dev2:$CI_COMMIT_SHORT_SHA .
+    # 推送docker镜像到 docker-registry
+    - docker push $DOCKER_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME-dev2:$CI_COMMIT_SHORT_SHA
+  tags:
+    - maven
+  only:
+    - dev
+
+docker-build-standalone:
+  image: registry.staging.qweib.com/qweib/maven-dind:3.6.0-jdk-8
+  stage: build-standalone
+  script:
+    # 生产环境打包
+    - mvn clean -P standalone -DskipTests deploy
+    # 登录 docker-registry
+    - docker login $DOCKER_REGISTRY -u $DOCKER_REGISTRY_USERNAME -p $DOCKER_REGISTRY_PASSWORD
+    # 构建本次commit hash的docker镜像
+    - docker build -t $DOCKER_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME-standalone:$CI_COMMIT_SHORT_SHA .
+    # 推送docker镜像到 docker-registry
+    - docker push $DOCKER_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME-standalone:$CI_COMMIT_SHORT_SHA
+  tags:
+    - maven
+  only:
+    - dev
+  when: manual
+
+docker-deploy-standalone:
+  stage: deploy-standalone
+  tags:
+    - lan2
+  script:
+    - docker login $DOCKER_REGISTRY -u$DOCKER_REGISTRY_USERNAME -p$DOCKER_REGISTRY_PASSWORD
+    - docker pull $DOCKER_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME-standalone:$CI_COMMIT_SHORT_SHA
+    - docker ps | grep $CI_PROJECT_NAME-standalone && docker stop $CI_PROJECT_NAME-standalone
+    - docker ps -a | grep $CI_PROJECT_NAME-standalone && docker rm $CI_PROJECT_NAME-standalone
+    - docker run -d --name $CI_PROJECT_NAME-standalone --network=microservice --link xxl-job:xxl-job  --link mysql-lan2:mysql-master -v /data/upload:/data/upload -v /data/poster:/data/poster -v /data/logs:/logs -p 19999:9999 -p 28082:8080 --env JAVA_OPTS="-Duser.timezone=Asia/Shanghai -server -XX:+UseConcMarkSweepGC -Djava.security.egd=file:/dev/./urandom -Dspring.profiles.active=local,wxremote" $DOCKER_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME-standalone:$CI_COMMIT_SHORT_SHA
+  environment:
+    name: beta
+    url: http://xmxs.vip.qweib.com
+  only:
+    - dev
+  when: manual
+
+#docker-deploy-dev:
+#  stage: deploy
+#  dependencies:
+#    - docker-build-dev
+#  tags:
+#    - lan
+#  only:
+#    - dev
+#  script:
+#    - docker login $DOCKER_REGISTRY -u $DOCKER_REGISTRY_USERNAME -p $DOCKER_REGISTRY_PASSWORD
+#    - docker ps | grep $CI_PROJECT_NAME-$CI_COMMIT_REF_NAME && docker stop $CI_PROJECT_NAME-$CI_COMMIT_REF_NAME
+#    - docker ps -a | grep $CI_PROJECT_NAME-$CI_COMMIT_REF_NAME && docker rm $CI_PROJECT_NAME-$CI_COMMIT_REF_NAME
+#    - docker run -d --net=microservice --net-alias=qweib-cloud --name $CI_PROJECT_NAME-$CI_COMMIT_REF_NAME -p 8085:8080 -v /data/logs:/data/logs -v /ext/storage/fs:/ext/storage/fs --env JAVA_OPTS="-Dspring.profiles.active=nacos -Duser.timezone=Asia/Shanghai -server -XX:+UseConcMarkSweepGC -Djava.security.egd=file:/dev/./urandom" $DOCKER_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:$CI_COMMIT_SHORT_SHA
+#  when: manual
+
+docker-deploy-dev2:
+  stage: deploy-dev2
+  tags:
+    - qwb4
+  script:
+    - docker login $DOCKER_REGISTRY -u$DOCKER_REGISTRY_USERNAME -p$DOCKER_REGISTRY_PASSWORD
+    - docker pull $DOCKER_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME-dev2:$CI_COMMIT_SHORT_SHA
+    - docker ps | grep $CI_PROJECT_NAME-dev2 && docker stop $CI_PROJECT_NAME-dev2
+    - docker ps -a | grep $CI_PROJECT_NAME-dev2 && docker rm $CI_PROJECT_NAME-dev2
+    - docker run -d --name $CI_PROJECT_NAME-dev2 -v /data/poster:/data/poster -v /data/logs:/data/logs -p 19999:9999 -p 28082:8080 --env JAVA_OPTS="-Duser.timezone=Asia/Shanghai -server -XX:+UseConcMarkSweepGC -Djava.security.egd=file:/dev/./urandom -Dspring.profiles.active=nacos" $DOCKER_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME-dev2:$CI_COMMIT_SHORT_SHA
+  environment:
+    name: beta
+    url: http://beta.t.qweib.com
+  only:
+    - dev
+  when: manual
+
+
+#docker-build-prod:
+#  image: registry.staging.qweib.com/qweib/maven-dind:3.6.0-jdk-8
+#  stage: build-prod
+#  script:
+#    # 生产环境打包
+#    - mvn -P prod -DskipTests package
+#    # 登录 docker-registry
+#    - docker login $DOCKER_REGISTRY -u$DOCKER_REGISTRY_USERNAME -p$DOCKER_REGISTRY_PASSWORD
+#    # 构建本次commit hash的docker镜像
+#    - docker build -t $DOCKER_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:$CI_COMMIT_SHORT_SHA .
+#    # 推送docker镜像到 docker-registry
+#    - docker push $DOCKER_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:$CI_COMMIT_SHORT_SHA
+#  tags:
+#    - maven
+#  only:
+#    - master
+#  except:
+#    - extract-member
+#  when: manual
+
+docker-build-beta:
+  image: registry.staging.qweib.com/qweib/maven-dind:3.6.0-jdk-8
+  stage: build-beta
+  script:
+    # 生产环境打包
+    - mvn -P beta -DskipTests deploy
+    # 登录 docker-registry
+    - docker login $DOCKER_REGISTRY -u$DOCKER_REGISTRY_USERNAME -p$DOCKER_REGISTRY_PASSWORD
+    # 构建本次commit hash的docker镜像
+    - docker build -t $DOCKER_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME-beta:$CI_COMMIT_SHORT_SHA .
+    # 推送docker镜像到 docker-registry
+    - docker push $DOCKER_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME-beta:$CI_COMMIT_SHORT_SHA
+  tags:
+    - maven
+  only:
+    - master
+
+#docker-deploy-prod:
+#  stage: deploy-prod
+#  tags:
+#    - prod
+#  script:
+#    - docker login $DOCKER_REGISTRY -u$DOCKER_REGISTRY_USERNAME -p$DOCKER_REGISTRY_PASSWORD
+#    - docker ps | grep $CI_PROJECT_NAME-$CI_COMMIT_REF_NAME-prod && docker stop $CI_PROJECT_NAME-$CI_COMMIT_REF_NAME-prod
+#    - docker ps -a | grep $CI_PROJECT_NAME-$CI_COMMIT_REF_NAME-prod && docker rm $CI_PROJECT_NAME-$CI_COMMIT_REF_NAME-prod
+#    - docker run -d --name $CI_PROJECT_NAME-$CI_COMMIT_REF_NAME-prod --link redis:redis --link mysql-master:mysql -v /data/logs:/data/logs -v /ext/storage/fs:/ext/storage/fs -p 28081:8080 --env JAVA_OPTS="-Duser.timezone=Asia/Shanghai -server -XX:+UseConcMarkSweepGC -Djava.security.egd=file:/dev/./urandom" $DOCKER_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:$CI_COMMIT_SHORT_SHA
+#  environment:
+#    name: production
+#    url: http://mp.qweib.com
+#  only:
+#    - master
+#  when: manual
+#
+#docker-deploy-prod-t:
+#  stage: deploy-prod
+#  tags:
+#    - prod
+#  script:
+#    - docker login $DOCKER_REGISTRY -u$DOCKER_REGISTRY_USERNAME -p$DOCKER_REGISTRY_PASSWORD
+#    - docker pull $DOCKER_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:$CI_COMMIT_SHORT_SHA
+#    - docker ps | grep $CI_PROJECT_NAME-$CI_COMMIT_REF_NAME-prod-t && docker stop $CI_PROJECT_NAME-$CI_COMMIT_REF_NAME-prod-t
+#    - docker ps -a | grep $CI_PROJECT_NAME-$CI_COMMIT_REF_NAME-prod-t && docker rm $CI_PROJECT_NAME-$CI_COMMIT_REF_NAME-prod-t
+#    - docker run -d --name $CI_PROJECT_NAME-$CI_COMMIT_REF_NAME-prod-t --link redis:redis --link mysql-master:mysql -v /data/logs:/data/logs -v /ext/storage/fs:/ext/storage/fs -p 38081:8080 --env JAVA_OPTS="-Duser.timezone=Asia/Shanghai -server -XX:+UseConcMarkSweepGC -Djava.security.egd=file:/dev/./urandom" $DOCKER_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:$CI_COMMIT_SHORT_SHA
+#  environment:
+#    name: production
+#    url: http://mp.t.qweib.com
+#  only:
+#    - master
+#  when: manual
+
+docker-deploy-beta:
+  stage: deploy-beta
+  tags:
+    - qwb4
+  script:
+    - docker login $DOCKER_REGISTRY -u$DOCKER_REGISTRY_USERNAME -p$DOCKER_REGISTRY_PASSWORD
+    - docker pull $DOCKER_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME-beta:$CI_COMMIT_SHORT_SHA
+    - docker ps | grep $CI_PROJECT_NAME-$CI_COMMIT_REF_NAME-beta && docker stop $CI_PROJECT_NAME-$CI_COMMIT_REF_NAME-beta
+    - docker ps -a | grep $CI_PROJECT_NAME-$CI_COMMIT_REF_NAME-beta && docker rm $CI_PROJECT_NAME-$CI_COMMIT_REF_NAME-beta
+    - docker run -d --name $CI_PROJECT_NAME-$CI_COMMIT_REF_NAME-beta -v /data/poster:/data/poster -v /data/fs/poster:/usr/local/tomcat/poster -v /data/logs:/data/logs -v /ext/storage/fs:/ext/storage/fs -p 38082:8080  -p 29999:9999 --env JAVA_OPTS="-Duser.timezone=Asia/Shanghai -server -XX:+UseConcMarkSweepGC -Djava.security.egd=file:/dev/./urandom -Dspring.profiles.active=nacos" $DOCKER_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME-beta:$CI_COMMIT_SHORT_SHA
+  environment:
+    name: beta
+    url: http://beta.qweib.com
+  only:
+    - master
+  when: manual
+#docker-deploy-beta-t:
+#  stage: deploy-beta
+#  tags:
+#    - qwb4
+#  script:
+#    - docker login $DOCKER_REGISTRY -u$DOCKER_REGISTRY_USERNAME -p$DOCKER_REGISTRY_PASSWORD
+#    - docker pull $DOCKER_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME-beta:$CI_COMMIT_SHORT_SHA
+#    - docker ps | grep $CI_PROJECT_NAME-$CI_COMMIT_REF_NAME-beta-t && docker stop $CI_PROJECT_NAME-$CI_COMMIT_REF_NAME-beta-t
+#    - docker ps -a | grep $CI_PROJECT_NAME-$CI_COMMIT_REF_NAME-beta-t && docker rm $CI_PROJECT_NAME-$CI_COMMIT_REF_NAME-beta-t
+#    - docker run -d --name $CI_PROJECT_NAME-$CI_COMMIT_REF_NAME-beta-t -v /data/logs:/data/logs -v /ext/storage/fs:/ext/storage/fs -p 28082:8080 --env JAVA_OPTS="-Duser.timezone=Asia/Shanghai -server -XX:+UseConcMarkSweepGC -Djava.security.egd=file:/dev/./urandom -Dspring.profiles.active=nacos" $DOCKER_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME-beta:$CI_COMMIT_SHORT_SHA
+#  environment:
+#    name: beta
+#    url: http://beta.t.qweib.com
+#  only:
+#    - master
+#  when: manual

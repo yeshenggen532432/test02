@@ -1,0 +1,137 @@
+/*公共样式*/
+
+*{
+	box-sizing:border-box;
+	-moz-box-sizing:border-box; 
+	-webkit-box-sizing:border-box;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+html,body {
+	margin:0;
+	padding:0;
+	background-color: #FFFFFF;
+	font-family: "微软雅黑";
+	font-size: 12px;
+}
+h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,cite,code,del,dfn,em,img,q,s,samp,small,strike,strong,sub,sup,tt,var,dd,dl,dt,li,ol,ul,fieldset,form,label,input,textarea,legend,button,table,tbody,caption,tfoot,thead,tr,th,td{
+	margin:0;
+	padding:0;
+	border:0;
+	font-weight:normal;
+	font-style:normal;
+}
+table {
+	border-collapse:collapse;
+	border-spacing:0
+}
+/*去除按钮默认样式*/
+input[type="button"], input[type="submit"], input[type="reset"] {
+	-webkit-appearance: none;
+}
+textarea {  -webkit-appearance: none;}
+/*去除input发光边框*/
+input:focus, textarea:focus {
+    outline: none;
+}
+/*去除IE10+浏览器文本框后面的小叉叉*/
+input::-ms-clear {
+    display: none;
+}
+/*禁止多行文本框textarea拖拽*/
+textarea {
+    resize: none;
+}
+ol,ul {
+	list-style:none;
+}
+a:focus {
+	outline:thin dotted;
+	outline-style:none;
+	 -moz-outline-style: none;
+	background: none;
+}
+img {
+	border:0;
+	-ms-interpolation-mode:bicubic;
+}
+a {
+	text-decoration:none;
+	outline:none; 
+	background: none;
+	-webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+	-webkit-user-select: none;
+	-moz-user-focus: none;
+	-moz-user-select: none;
+}
+input::-webkit-input-placeholder {
+	color:#c0c4c8
+}
+.clearfix:after{
+	clear:both;
+	content:'.';
+	display:block;
+	width: 0;
+	height: 0;
+	visibility:hidden;
+}
+.fl{
+	float: left;
+}
+.fr{
+	float: right;
+}
+.hidden{
+	display: none;
+}
+.show{
+	display: block;
+}
+i{
+	font-style: normal;
+}
+select{
+	appearance:none;
+	-moz-appearance:none;
+	-webkit-appearance:none;
+}
+select::-ms-expand { display: none; }
+button{outline: none;background:none;}
+input{background:none;  outline:none;  border:0px;-webkit-appearance:none;-webkit-tap-highlight-color:rgba(0, 0, 0, 0);  }
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none;
+  margin: 0; 
+}
+input[type=number] {
+    -moz-appearance:textfield;
+}
+button{-webkit-appearance: none; -webkit-tap-highlight-color: transparent;}
+/*自动隐藏文字*/
+.ellipsis {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+.ellipsis1 {
+	display: -webkit-box;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	word-wrap: break-word;
+	word-break: break-all;
+	white-space: normal !important;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+}
+.ellipsis2 {
+	display: -webkit-box;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	word-wrap: break-word;
+	word-break: break-all;
+	white-space: normal !important;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+}
+.Flow1{display:flex;justify-content: space-between;flex-flow: column;}
+.Flow2{display:flex;align-items: center;justify-content:center;}
+

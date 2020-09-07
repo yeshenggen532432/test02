@@ -1,0 +1,73 @@
+{
+  "slave": [
+    {
+      "field": "billNo",
+      "title": "单号",
+      "width": 150
+    },
+    {
+      "field": "inDate",
+      "title": "单据日期",
+      "width": 120
+    },
+    {
+      "field": "operator",
+      "title": "创建人",
+      "width": 70
+    },
+    {
+      "field": "inType",
+      "title": "入库类型",
+      "width": 80
+    },
+    {
+      "field": "proName",
+      "title": "供应商",
+      "width": 130
+    },
+    {
+      "field": "totalAmt",
+      "title": "合计金额",
+      "width": 80
+    },
+    {
+      "field": "discount",
+      "title": "整单折扣",
+      "width": 80
+    },
+    {
+      "field": "disAmt",
+      "title": "单据金额",
+      "width": 80
+    },
+    {
+      "field": "payAmt",
+      "title": "已付金额",
+      "width": 80
+    },
+    {
+      "field": "freeAmt",
+      "title": "核销金额",
+      "width": 80
+    },
+    {
+      "field": "billStatus",
+      "title": "单据状态",
+      "width": 80
+    },
+    {
+      "field": "remarks",
+      "title": "备注",
+      "width": 100
+    },
+   {
+      "field": "submitUser",
+      "title": "审核人",
+      "width": 100
+    },{
+      "field": "cancelUser",
+      "title": "作废人",
+      "width": 100
+    }
+  ]
+}

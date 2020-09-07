@@ -1,0 +1,39 @@
+
+<!-- 主题设置模板 -->
+
+<script type="text/html" template lay-done="layui.data.theme();">
+  <div class="layui-card-header">
+    订单信息提示
+  </div>
+  <div class="layui-card-body">
+    <ul class="layui-timeline">
+      {{# layui.each(layui.setter.orders, function(index, item){ }}
+      <li class="layui-timeline-item">
+        <i class="layui-icon layui-timeline-axis"></i>
+        <div class="layui-timeline-content layui-text">
+          <div class="layui-timeline-title"><button onclick="layui.index.readMsg(this)" data-index="{{index}}" data-id="{{item.id}}" class="layui-btn layui-btn-normal layui-btn-xs"><i class="layui-icon">&#xe605;</i>知道了</button>
+            <span class="layui-badge layui-bg-red">{{item.msgtime}}</span>
+            <p>{{item.orderNo}}  【业:{{item.memberNm}} 客:{{item.khNm}}】</p>
+          </div>
+        </div>
+      </li>
+      {{# }); }}
+    </ul>
+  </div>
+</script>
+
+<script>
+layui.data.theme = function(){
+  layui.use('form', function(){
+    var form = layui.form
+    ,admin = layui.admin;
+    
+    //监听隐藏开关
+    form.on('switch(system-theme-sideicon)', function(){
+      admin.theme({
+        hideSideIcon: this.checked
+      })
+    });
+  });
+};
+</script>

@@ -1,0 +1,227 @@
+@CHARSET "UTF-8";
+/*
+ * 名称：pisaPop样式表
+ * 运用：弹出框
+ * 作者：陈志明
+ * 项目：Pisa
+ * 公司：35.cn
+ * Email:chenzhm3@35.cn
+ */
+ body{margin:0;padding:0;}
+ .comPopMask
+ {
+  	   background:yellow;position:absolute;z-index:1000;width:100%;height:100%;
+       display:block;
+       filter:alpha(opacity=20);opacity: 0.2;-moz-opacity: 0.2;
+       background-color:#212121;
+       left:0;
+       top:0;
+       right:0;
+       bottom:0;
+       
+ }
+ .comPopMask-session {
+	background:#FFFFFF;position:absolute;z-index:10005;width:100%;height:100%;
+	display:block;
+	/*filter:alpha(opacity=80);opacity: 0.8;-moz-opacity: 0.8;*/
+	background-color:#FFFFFF;
+	left:0;
+	top:0;
+	right:0;
+  	bottom:0;
+ }
+.comPopDIV
+{
+	position: absolute;
+	display: none;
+	z-index:1000;
+	top: 50%;
+	left: 50%;
+	background-color:#FFFFFF;
+	border:solid 1px #B1CBB1;
+	background-image:url(../images/create_content_bg.jpg);background-position:bottom left;
+	background-repeat:repeat-x;
+}
+/*head-------------------------------------------------------------*/
+.boxHead{
+
+	height :25px;
+	line-height:25px;
+	width:100%;
+
+}
+.headLeft{
+	background-image:url(../images/combined.png);
+	background-position:0px -990px;
+	background-repeat:repeat-x;
+	float:left; 
+}
+.headCenter
+ {
+     background-image:url(../images/combined.png);
+	background-position:0px -990px;
+	background-repeat:repeat-x;
+     height :100%;
+}
+.headRight{
+	background-image:url(../images/combined.png);
+	background-position:0px -990px;
+	background-repeat:repeat-x;
+	float:right;
+	/*width :20px;*/
+	height:100%;
+}
+.popClose{
+	background:transparent url(../images/close.jpg) no-repeat scroll 0 0;
+	cursor:pointer;
+	height:15px;
+	margin-top:10px;
+	_margin-right:5px;
+	width:15px;
+}
+
+.titleText{
+	color:#955A32;
+	padding-left:10px;
+	font-size : 12px;
+}
+/*body---------------------------------------------------------------*/
+.bodyLeft{
+	/*background:#fff  url('comPop_05.jpg') repeat-y scroll 0 0;*/
+	padding-left: 16px;
+}
+.bodyRight{
+	/*background:transparent url('comPop_08.jpg') repeat-y scroll right 0;*/
+	/*padding-right:20px;*/
+}
+.boxBody{
+	padding:10px  0px;
+	/*background:transparent url('comPop_06.jpg') repeat-x scroll 0 0;*/
+	
+	
+}
+.boxContent
+{
+	min-height:50px;
+ 	height:auto !important;
+ 	height:50px;
+ 	overflow:visible;
+ 	line-height:24px;
+ 	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-left:0px;
+	font-size:12px;
+	color:#555555;
+}
+
+.popInfo{background:url(info.gif) no-repeat scroll 20px 50%;}
+.popFail{background:url(err.gif) no-repeat scroll 20px 50%;}
+.popSuccess{background:url(right.gif) no-repeat scroll 20px 50%;}
+.popAsk{background:url(ask.gif) no-repeat scroll 20px 50%;}
+
+
+
+#infoPop_btnDIV
+{
+	margin:0 auto;
+	overflow:auto;
+	zoom:1;
+}
+
+.comBtn
+{
+	background:url(btn01.png) no-repeat;
+	height: 24px; 
+	padding:0px 10px 0px 5px;
+	font-size:24px;
+}
+
+input.comBtn
+{
+	background:url(btn02.png) no-repeat 100% 0;
+	height: 24px;
+	border: 0px; 
+	
+	font-size:12px;
+	vertical-align:top;
+	margin-top:0px;
+}
+
+
+.comBtn_over
+{
+	background:url(btn01_over.png) no-repeat;
+	height: 24px; 
+	padding:0px 10px 0px 5px;
+	font-size:24px;
+}
+
+input.comBtn_over
+{
+	background:url(btn02_over.png) no-repeat 100% 0;
+	height: 24px;
+	border: 0px; 
+	
+	font-size:12px;
+	vertical-align:top;
+	margin-top:0px;
+}
+
+.pBtn
+{
+	border:solid 1px #B1CBB1;
+	margin-right:5px;
+	padding:0px 5px;
+	background-color:#FFFFFF;
+	background-image:url(../images/combined.png);
+	background-position:0 -1080px;height:23px;
+	overflow:visible;
+	text-decoration:none !important;
+}
+
+.pBtn_over
+{
+	border:solid 1px #B1CBB1;
+	margin-right:5px;
+	padding:0px 5px;
+	background-color:#FFFFFF;
+	background-image:url(../images/combined.png);
+	background-position:0 -990px;height:23px;
+	overflow:visible;
+	text-decoration:none !important;
+}
+/*foot---------------------------------------------------------------*/
+.boxFoot{
+	height :15px;
+	line-height :15px;
+}
+.footLeft{
+	/*background:transparent url(comPop_13.jpg) no-repeat scroll right bottom;*/
+	float:left; 
+	width :16px;
+   
+}
+.footCenter
+ {
+     /*background:url(comPop_14.jpg);*/
+}
+.footRight{
+	/*background:transparent url(comPop_16.jpg) no-repeat scroll right bottom;*/
+	float:right;
+	width :20px;
+}
+
+
+
+
+
+* html .headLeft   /*ie 6.0*/
+{margin-right :-3px;}	     
+
+* html .headRight   /*ie 6.0*/
+{margin-left :-3px;}
+* html .footLeft   /*ie 6.0*/
+{margin-right :-3px;}	     
+
+* html .footRight   /*ie 6.0*/
+{margin-left :-3px;}

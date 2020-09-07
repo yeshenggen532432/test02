@@ -1,0 +1,53 @@
+﻿@charset "utf-8";
+/* CSS Document */
+body,h1,h2,h3,h4,h5,h6,hr,p,blockquote,dl,dt,dd,ul,ol,li,pre,form,fieldset,legend,button,input,textarea,th,td{margin:0;padding:0;}
+:focus{outline:none;}
+body,button,input,select,textarea{font:12px/1.5 arial,"",tahoma,\5b8b\4f53,sans-serif;color:#333;}
+h1,h2,h3,h4,h5,h6{font-size:100%;}
+address,cite,dfn,em,var{font-style:normal;}
+code,kbd,pre,samp{font-family:courier new,courier,monospace;}
+small{font-size:12px;}
+ul,ol{list-style:none;}
+a:link,a:visited{text-decoration:none;color:#333;}
+a:hover,a:active{text-decoration:underline;color:#FF0000;}
+sup{vertical-align:text-top;}
+sub{vertical-align:text-bottom;}
+legend{color:#000;}
+fieldset,img{border:0;}
+button,input,select,textarea{font-size:100%;vertical-align:middle;}
+table{border-collapse:collapse;border-spacing:0;}
+.clear{clear:both;}
+body{ background:url(../images/header.gif) repeat-x #f0f0f0;}
+#wrap{ width:980px; margin:0px auto; position:relative; padding-bottom:35px;}
+.header{ height:138px;}
+.h2_txt{ font-size:14px; font-family:"微软雅黑","宋体"; padding-top:20px; padding-left:55px;}
+.dl_01{ font-size:14px;font-family:"微软雅黑","宋体"; line-height:24px; padding-top:10px; color:#666;  padding-left:55px; }
+.phone{ position:absolute; top:0px; right:0px;}
+.dl_02{ padding-left:55px; padding-top:15px;}
+.dl_02 dd{ width:175px; float:left;}
+.dl_02 dd p{ padding-bottom:15px;}
+.dl_02 dd div{ padding-bottom:5px;}
+.icoBox{ background:#fff; height:150px;}
+.icoBox ul{ width:800px; margin:0px auto;}
+.icoBox ul li{ width:33%; float:left; text-align:center; padding-top:20px;}
+.icoBox ul li div{ padding-bottom:10px; font-family:"微软雅黑"，"宋体"; font-size:16px; font-weight:bold;}
+#bottom{ background:#fff; text-align:center; padding:10px;}
+
+.body1{ background:none; background:#f0f0f0;}
+#mobie{
+	width:100%;
+	max-width:640px;
+	margin:0px auto;
+}
+#head img{}
+#main2 .dl_02{ width:64%;}
+#main2 .dl_02 dd{ width:100%;}
+#main2 .dl_02 img{ }
+#main2 .h2_txt,#main2 .dl_01,#main2 .dl_02{ padding-left:5%;}
+#main2{ width:100%; overflow:hidden;}
+#main2 .m_left{ width:36%; float:left;}
+#main2 .m_right{ width:63.9%; float:left;}
+#main2 .m_right img{ }
+.mobil_ico{ height:auto;}
+.mobil_ico ul{ width:100%;}
+.mobil_ico ul li img{ width:33%;}

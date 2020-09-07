@@ -1,0 +1,47 @@
+.layui-card-header.btn-group {
+    padding-left: 0px;
+    line-height: inherit;
+    height: inherit;
+}
+
+.k-grid {
+    font-size: 14px;
+}
+
+.k-grid td {
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+.layui-card-body.full {
+    padding: 0;
+}
+
+.k-grid .k-command-cell .k-button {
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+.k-grid tbody tr {
+    cursor: move;
+}
+
+.k-dialog .k-content {
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+.k-virtual-scrollable-wrap td {
+    font-size: 14px;
+    white-space: nowrap;
+    line-height: 13px;
+}
+.k-grid-toolbar, .k-grouping-header {
+    padding: 0;
+}
+
+.k-datetimepicker {
+    width: 15em;
+}
+
+

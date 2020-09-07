@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"
+       default-lazy-init="true">
+
+    <description>wechat configuration</description>
+
+   <!-- <bean class="com.qweib.cloud.biz.mall.weixin.config.WxMpServiceFactory"></bean>
+
+    <bean class="com.qweib.cloud.biz.mall.weixin.service.impl.MpServiceRegistryImpl"></bean>
+
+
+    <beans profile="wxlocal">
+        <bean id="weiXinService" class="com.qweib.cloud.biz.mall.weixin.service.impl.LocalWeiXinServiceImpl"/>
+    </beans>
+
+    <beans profile="nacos,wxremote">
+        <bean id="weiXinService" class="com.qweib.cloud.biz.mall.weixin.service.impl.RemoteWeiXinServiceImpl"/>
+    </beans>-->
+
+</beans>

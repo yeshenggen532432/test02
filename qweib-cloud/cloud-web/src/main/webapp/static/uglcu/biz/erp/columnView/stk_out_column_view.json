@@ -1,0 +1,114 @@
+{
+  "slave": [
+    {
+      "field": "billNo",
+      "title": "单号",
+      "width": 150
+    },
+    {
+      "field": "outDate",
+      "title": "单据日期",
+      "width": 120
+    },
+    {
+      "field": "khNm",
+      "title": "客户名称",
+      "width": 180
+    },
+    {
+      "field": "billStatus",
+      "title": "单据状态",
+      "width": 80
+    },
+    {
+      "field": "operator",
+      "title": "创建人",
+      "width": 70
+    },
+    {
+      "field": "staff",
+      "title": "业务员",
+      "width": 70
+    },
+    {
+      "field": "newTime",
+      "title": "是否修改过",
+      "width": 90
+    },
+    {
+      "field": "totalAmt",
+      "title": "合计金额",
+      "width": 80
+    },
+    {
+      "field": "discount",
+      "title": "整单折扣",
+      "width": 80
+    },
+    {
+      "field": "disAmt",
+      "title": "单据金额",
+      "width": 80
+    },
+    {
+      "field": "recAmt",
+      "title": "已收金额",
+      "width": 80
+    },
+    {
+      "field": "freeAmt",
+      "title": "核销金额",
+      "width": 80
+    },
+    {
+      "field": "saleType",
+      "title": "业务类型",
+      "width": 100
+    },
+    {
+      "field": "orderNo",
+      "title": "订单单号",
+      "width": 135
+    },
+    {
+      "field": "outType",
+      "title": "出库类型",
+      "width": 80
+    },
+    {
+      "field": "remarks",
+      "title": "备注",
+      "width": 100
+    },
+    {
+      "field": "shr",
+      "title": "收货人",
+      "width": 160
+    },
+    {
+      "field": "tel",
+      "title": "电话",
+      "width": 140
+    },{
+      "field": "address",
+      "title": "地址",
+      "width": 160
+    },{
+      "field": "pszd",
+      "title": "配送指定",
+      "width": 100
+    },{
+      "field": "submitUser",
+      "title": "审核人",
+      "width": 100
+    },{
+      "field": "cancelUser",
+      "title": "作废人",
+      "width": 100
+    },{
+      "field": "epCustomerName",
+      "title": "所属二批",
+      "width": 160
+    }
+  ]
+}

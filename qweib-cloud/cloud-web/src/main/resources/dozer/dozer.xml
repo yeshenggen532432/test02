@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<mappings xmlns="http://dozer.sourceforge.net"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://dozer.sourceforge.net
+          http://dozer.sourceforge.net/schema/beanmapping.xsd">
+
+    <configuration>
+        <custom-converters>
+            <converter type="com.qweib.cloud.service.member.common.dozer.MemberUseDozerConverter">
+                <class-a>java.lang.String</class-a>
+                <class-b>com.qweib.cloud.service.member.common.MemberUseEnum</class-b>
+            </converter>
+            <converter type="com.qweib.cloud.service.member.common.dozer.MemberUnitmngDozerConverter">
+                <class-a>java.lang.String</class-a>
+                <class-b>com.qweib.cloud.service.member.common.MemberUnitmngEnum</class-b>
+            </converter>
+            <converter type="com.qweibframework.commons.dozer.StringDateConverter">
+                <class-a>java.lang.String</class-a>
+                <class-b>java.util.Date</class-b>
+            </converter>
+            <converter type="com.qweib.cloud.service.basedata.common.dozer.SysNoticeTypeDozerConverter">
+                <class-a>java.lang.String</class-a>
+                <class-b>com.qweib.cloud.service.basedata.common.SysNoticeTypeEnum</class-b>
+            </converter>
+            <converter type="com.qweib.cloud.service.basedata.common.dozer.SysNoticeSendObjectDozerConverter">
+                <class-a>java.lang.String</class-a>
+                <class-b>com.qweib.cloud.service.basedata.common.SysNoticeSendObjectEnum</class-b>
+            </converter>
+
+            <converter type="com.qweib.cloud.biz.mall.service.basedata.PayStatusEnumDozerConverter">
+                <class-a>java.lang.Integer</class-a>
+                <class-b>com.qweib.cloud.service.basedata.common.PayStatusEnum</class-b>
+            </converter>
+            <converter type="com.qweib.cloud.service.basedata.common.dozer.AppVersionTypeDozerConverter">
+                <class-a>java.lang.String</class-a>
+                <class-b>com.qweib.cloud.service.basedata.common.AppVersionTypeEnum</class-b>
+            </converter>
+        </custom-converters>
+    </configuration>
+
+</mappings>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <jmxConfigurator/>
+
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- 典型的日志pattern -->
+        <encoder>
+            <pattern>%date{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!-- 综合时间与大小的滚动策略，先按小时滚动，小时内的文件大于10mb时再按大小滚动 -->
+    <appender name="logstash" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.path}qweib_cloud${log.suffix}.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log.path}archive/qweib_log${log.suffix}%d{yyyy-MM-dd_HH}.%i.zip</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>10MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+            <charset>UTF-8</charset>
+        </encoder>
+        <!--  <encoder>
+              <pattern>%date{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+              <charset>UTF-8</charset>
+          </encoder>-->
+    </appender>
+
+
+    <appender name="rolling" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.path}qweib_cloud${log.suffix}.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log.path}archive/qweib_log${log.suffix}%d{yyyy-MM-dd_HH}.%i.zip</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>10MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%date{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+
+    <!-- project default level -->
+    <logger name="org.springframework.jdbc.core.JdbcTemplate" level="INFO"/>
+    <logger name="org.springframework.jdbc.core.JdbcTemplate" level="INFO"/>
+    <logger name="org.springframework" level="INFO"/>
+    <logger name="org.springframework.scheduling" level="WARN"/>
+    <!--<logger name="org.springframework.jdbc.core.StatementCreatorUtils" level="TRACE" />-->
+    <logger name="com.qweib.cloud" level="DEBUG"/>
+    <!--<logger name="com.qweib.cloud.datasource" level="TRACE"/>-->
+    <logger name="com.qweibframework" level="DEBUG"/>
+    <!--<logger name="com.qweibframework.boot.datasource" level="TRACE"/>-->
+    <!--<logger name="org.apache.shiro" level="TRACE" />-->
+
+
+    <!-- root -->
+    <root level="WARN">
+        <appender-ref ref="${log.appender}"/>
+    </root>
+</configuration>

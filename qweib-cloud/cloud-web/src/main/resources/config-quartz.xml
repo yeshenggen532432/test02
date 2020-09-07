@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd"
+	default-lazy-init="true">
+
+
+	<!--======================== 定时器配置 ========================-->
+
+	<!--要调用的工作类  -->
+	<bean id="quartzJob"
+		class="com.qweib.cloud.schedule.TaskSyncUtil">
+	</bean>
+
+	<!--定义调用对象和调用对象的方法  -->
+	<bean id="jobtask"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<!--调用的类  -->
+		<property name="targetObject">
+			<ref bean="quartzJob" />
+		</property>
+		<!--调用类中的方法  -->
+		<property name="targetMethod">
+			<value>tasksysPush</value>
+		</property>
+		<!-- 是否并发执行任务，false就是等待上一次执行完再开始执行 -->
+		<property name="concurrent" value="false" />
+	</bean>
+
+	<!--定义触发时间  -->
+	<bean id="doTime" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+
+		<property name="jobDetail">
+			<ref bean="jobtask" />
+		</property>
+
+		<!--cron表达式  -->
+		<property name="cronExpression">
+			<!--第 10秒 隔 5秒执行一次 -->
+			<!--  <value>${TASK_BALANCE_JOB}</value>-->
+			<value>0/10 * * * * ?</value>
+		</property>
+	</bean>
+
+	<!--总管理类 如果将lazy-init='false'那么容器启动就会执行调度程序  -->
+	<!--<bean id="startQuertz" lazy-init="false" autowire="no"
+		class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="doTime" />
+			</list>
+		</property>
+	</bean>-->
+
+</beans>

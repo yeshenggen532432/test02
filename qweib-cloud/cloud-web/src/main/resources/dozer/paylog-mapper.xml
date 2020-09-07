@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<mappings xmlns="http://dozer.sourceforge.net"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://dozer.sourceforge.net
+          http://dozer.sourceforge.net/schema/beanmapping.xsd">
+    <mapping>
+        <class-a>com.qweib.cloud.service.basedata.domain.payment.PayRecordDTO</class-a>
+        <class-b>com.qweib.cloud.biz.mall.model.ShopPayLog</class-b>
+        <field>
+            <a>type</a>
+            <b>paytype</b>
+        </field>
+        <field>
+            <a>amount</a>
+            <b>payAmt</b>
+        </field>
+    </mapping>
+    <mapping>
+        <class-a>com.qweib.cloud.service.basedata.domain.payment.PayRecordSave</class-a>
+        <class-b>com.qweib.cloud.biz.mall.model.ShopPayLog</class-b>
+        <field>
+            <a>type</a>
+            <b>paytype</b>
+        </field>
+        <field>
+            <a>amount</a>
+            <b>payAmt</b>
+        </field>
+    </mapping>
+</mappings>

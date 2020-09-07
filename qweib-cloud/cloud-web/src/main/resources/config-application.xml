@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:p="http://www.springframework.org/schema/p" xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd"
+       default-lazy-init="true">
+
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+    <!-- 使用annotation 自动注册bean 过滤掉control-->
+    <context:component-scan base-package="com.qweib.cloud,com.qweibframework.async.handler">
+        <context:exclude-filter type="annotation"
+                                expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+
+    <util:properties id="properties" location="classpath*:properties/*.properties, classpath:quartz.properties"/>
+    <context:property-placeholder properties-ref="properties"/>
+
+    <bean id="treeCodeRuleGenerator" class="com.qweib.business.code.impl.TreeCodeRuleGenerator"/>
+    <bean id="billCodeRuleGenerator" class="com.qweib.business.code.impl.BillCodeRuleGenerator"/>
+
+    <bean id="menuLoader" class="com.qweib.cloud.biz.system.service.impl.MenuLoaderImpl">
+        <property name="location" value="classpath:menu/creator.json"/>
+    </bean>
+
+    <!--固定的数据源-->
+    <bean class="com.qweib.cloud.datasource.SmartDataSourceAllocator"/>
+
+    <!-- jdbcTemplate 配置-->
+    <bean primary="true" id="daoTemplate" class="com.qweib.cloud.core.dao.JdbcDaoTemplate">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    <!-- jdbcTemplate 配置-->
+    <bean id="pdaoTemplate" class="com.qweib.cloud.core.dao.JdbcDaoTemplatePlud">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!--======================== 事务配置 ========================-->
+    <!-- 配置事务管理器 -->
+    <bean id="transactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    <!-- 配置事务特性 ，配置add、delete和update开始的方法，事务传播特性为required-->
+    <tx:advice id="txAdvice">
+        <tx:attributes>
+            <tx:method name="add*"/>
+            <tx:method name="delete*"/>
+            <tx:method name="update*"/>
+            <tx:method name="cancel*"/>
+            <tx:method name="save*"/>
+            <tx:method name="audit*"/>
+            <tx:method name="flush*"/>
+            <tx:method name="remove*"/>
+            <tx:method name="clear*"/>
+            <tx:method name="*" propagation="NOT_SUPPORTED" read-only="true"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <!-- 配置那些类的方法进行事务管理，当前com.mall.*.service.*.*(..) com包下的所有包下的service包下的所有类的所有方法-->
+    <aop:config>
+        <aop:pointcut id="managerMethod"
+                      expression="execution (* com.qweib.cloud.biz..*.service..*.*(..))"/>
+        <aop:advisor advice-ref="txAdvice"
+                     pointcut-ref="managerMethod"/>
+    </aop:config>
+
+    <beans profile="nacos">
+        <bean id="nacos" class="com.qweibframework.boot.nacos.NacosFactoryBean">
+            <property name="configServerUrl" value="${nacos.server.url}"/>
+        </bean>
+        <bean id="dataSourceProvider" class="com.qweibframework.boot.datasource.config.NacosDataSourceProvider"
+              init-method="load">
+            <property name="configService" ref="nacos"/>
+            <property name="dataId" value="datasource"/>
+            <property name="group" value="DEFAULT_GROUP"/>
+        </bean>
+        <bean id="dataSource" class="com.qweibframework.boot.datasource.DynamicDataSourceRouter">
+            <property name="dataSourceProvider" ref="dataSourceProvider"/>
+        </bean>
+    </beans>
+
+    <beans profile="local">
+        <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init"
+              destroy-method="close">
+            <property name="driverClassName" value="${jdbc.driver}"/>
+            <property name="url" value="${jdbc.url}"/>
+            <property name="username" value="${jdbc.username}"/>
+            <property name="password" value="${jdbc.password}"/>
+            <!-- 配置初始化大小、最小、最大 -->
+            <property name="initialSize" value="${jdbc.pool.init}"/>
+            <property name="minIdle" value="${jdbc.pool.minIdle}"/>
+            <property name="maxActive" value="${jdbc.pool.maxActive}"/>
+
+            <!-- 配置获取连接等待超时的时间 -->
+            <property name="maxWait" value="60000"/>
+
+            <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+            <property name="timeBetweenEvictionRunsMillis" value="60000"/>
+
+            <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+            <property name="minEvictableIdleTimeMillis" value="300000"/>
+
+            <property name="validationQuery" value="${jdbc.testSql}"/>
+            <property name="testWhileIdle" value="true"/>
+            <property name="testOnBorrow" value="false"/>
+            <property name="testOnReturn" value="false"/>
+            <property name="filters" value="config"/>
+            <property name="connectionProperties"
+                      value="config.decrypt=${jdbc.decrypt};config.decrypt.key=${publicKey}"/>
+        </bean>
+    </beans>
+
+</beans>

@@ -1,0 +1,51 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "474974",
+      "name": "pc6",
+      "font_class": "pc6",
+      "unicode": "e62a",
+      "unicode_decimal": 58922
+    },
+    {
+      "icon_id": "1026713",
+      "name": "password",
+      "font_class": "password",
+      "unicode": "e629",
+      "unicode_decimal": 58921
+    },
+    {
+      "icon_id": "7605162",
+      "name": "QR-code",
+      "font_class": "QR-code",
+      "unicode": "e637",
+      "unicode_decimal": 58935
+    },
+    {
+      "icon_id": "8963933",
+      "name": "qr-code 二维码",
+      "font_class": "qr-code",
+      "unicode": "e6e5",
+      "unicode_decimal": 59109
+    },
+    {
+      "icon_id": "9568054",
+      "name": "Account",
+      "font_class": "Account",
+      "unicode": "e648",
+      "unicode_decimal": 58952
+    },
+    {
+      "icon_id": "13743983",
+      "name": "qr-code",
+      "font_class": "qr-code1",
+      "unicode": "e68d",
+      "unicode_decimal": 59021
+    }
+  ]
+}

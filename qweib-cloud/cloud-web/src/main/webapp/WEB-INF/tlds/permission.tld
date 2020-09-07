@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
+        version="2.0">
+
+    <description>JSTL 1.1 functions library</description>
+    <display-name>JSTL functions basic</display-name>
+    <tlib-version>1.1</tlib-version>
+    <short-name>permission</short-name>
+    <uri>http://java.sun.com/jsp/jstl/functionsc</uri>
+
+    <function>
+        <description>CHECK USER BUTTON PDM</description>
+        <name>checkUserBtnPdm</name>
+        <function-class>com.qweib.cloud.biz.system.PermissionUtil</function-class>
+        <function-signature>java.util.Map checkUserBtnPdm(java.lang.String)</function-signature>
+        <example>${fns:checkUserBtnPdm(btnCode)}</example>
+    </function>
+
+    <function>
+        <description>CHECK USER BUTTON PDM</description>
+        <name>checkUserFieldPdm</name>
+        <function-class>com.qweib.cloud.biz.system.PermissionUtil</function-class>
+        <function-signature>java.lang.Boolean checkUserFieldPdm(java.lang.String)</function-signature>
+        <example>${fns:checkUserFieldPdm(btnCode)}</example>
+    </function>
+    <function>
+        <description>CHECK USER BUTTON PDM</description>
+        <name>checkUserFieldDisplay</name>
+        <function-class>com.qweib.cloud.biz.system.PermissionUtil</function-class>
+        <function-signature>java.lang.String checkUserFieldDisplay(java.lang.String)</function-signature>
+        <example>${fns:checkUserFieldDisplay(btnCode)}</example>
+    </function>
+
+    <function>
+        <description>CHECK USER BUTTON PDM</description>
+        <name>checkUserButtonPdm</name>
+        <function-class>com.qweib.cloud.biz.system.PermissionUtil</function-class>
+        <function-signature>java.lang.Boolean checkUserButtonPdm(java.lang.String)</function-signature>
+        <example>${fns:checkUserButtonPdm(btnCode)}</example>
+    </function>
+</taglib>

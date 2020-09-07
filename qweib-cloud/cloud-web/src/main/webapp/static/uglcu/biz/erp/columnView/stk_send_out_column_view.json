@@ -1,0 +1,100 @@
+{
+  "slave": [
+    {
+      "field": "billNo",
+      "title": "单号",
+      "width": 150
+    },
+    {
+      "field": "outDate",
+      "title": "单据日期",
+      "width": 120
+    },
+    {
+      "field": "outType",
+      "title": "出库类型",
+      "width": 80
+    },
+    {
+      "field": "khNm",
+      "title": "客户名称",
+      "width": 180
+    },
+    {
+      "field": "sumQty",
+      "title": "单据数量",
+      "width": 80
+    },
+    {
+      "field": "sumOutQty",
+      "title": "已发货数量",
+      "width": 80
+    },
+    {
+      "field": "psSumQty",
+      "title": "配送中数量",
+      "width": 80
+    },
+
+    {
+      "field": "totalAmt",
+      "title": "合计金额",
+      "width": 80
+    },
+    {
+      "field": "discount",
+      "title": "整单折扣",
+      "width": 80
+    },
+    {
+      "field": "disAmt",
+      "title": "单据金额",
+      "width": 80
+    },
+    {
+      "field": "recAmt",
+      "title": "已收金额",
+      "width": 80
+    },
+    {
+      "field": "freeAmt",
+      "title": "核销金额",
+      "width": 80
+    },
+    {
+      "field": "staff",
+      "title": "业务员",
+      "width": 70
+    },
+    {
+      "field": "remarks",
+      "title": "备注",
+      "width": 100
+    },
+    {
+      "field": "shr",
+      "title": "收货人",
+      "width": 160
+    },
+    {
+      "field": "address",
+      "title": "地址",
+      "width": 160
+    },
+    {
+      "field": "tel",
+      "title": "电话",
+      "width": 140
+    },
+    {
+      "field": "operator",
+      "title": "创建人",
+      "width": 70
+    },
+    {
+      "field": "pszd",
+      "title": "配送指定",
+      "width": 100
+    }
+  ]
+}

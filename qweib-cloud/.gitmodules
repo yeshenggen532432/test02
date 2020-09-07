@@ -1,0 +1,12 @@
+[submodule "cloud-biz-erp"]
+  path = cloud-biz-erp
+  url = ../cloud-biz-erp
+[submodule "cloud-biz-pos"]
+  path = cloud-biz-pos
+  url = ../cloud-biz-pos
+[submodule "cloud-biz-mall"]
+  path = cloud-biz-mall
+  url = ../cloud-biz-mall
+[submodule "cloud-biz-attendance"]
+  path = cloud-biz-attendance
+  url = ../cloud-biz-attendance

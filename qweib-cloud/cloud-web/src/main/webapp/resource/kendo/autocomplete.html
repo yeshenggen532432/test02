@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>表单控件</title>
+    <link rel="stylesheet" href="./style/autocomplete.min.css"/>
+</head>
+<body>
+<div style="width: 400px; margin: 0 auto;">
+    <input id="ac"/>
+    <input id="ac2"/>
+</div>
+
+<script type="text/x-uglcw-template" id="t">
+    <div style="display: inline-block">
+        <span class="">#= data.branchName#</span>
+        <span style="margin-left: 10px; float: right;">#= data.memberNm#</span>
+    </div>
+</script>
+
+<script src="./js/jquery.min.js"></script>
+<script src="./js/kendo.custom.min.js"></script>
+<script>
+    $(function () {
+        $('#ac').kendoAutoComplete({
+            dataTextField: 'memberNm',
+            dataValueField: 'memberId',
+            dataSource: {
+                serverFiltering: true,
+                schema: {
+                    data: function (response) {
+                        return response || []
+                    }
+                },
+                transport: {
+                    read: {
+                        url: './data/list.json',
+                        type: 'get',
+                        data: function () {
+                            return {
+                                param1: '1111'
+                            }
+                        }
+                    }
+                }
+            }
+        })
+
+        $('#ac2').kendoAutoComplete({
+            minLength: 3, //输入多少字符串后开始发起请求
+            dataTextField: 'memberNm', //文本字段
+            dataValueField: 'memberId', //值字段
+            headerTemplate: '<div style="background-color: red;color: white; font-weight: bold; "><span>头部模板</span></div>',
+            footerTemplate: '<div style="background-color: green;color: white; font-weight: bold; "> <span>底部模板</span></div>',
+            template: kendo.template($('#t').html()),
+            dataSource: {
+                serverFiltering: true,
+                schema: {
+                    data: function (response) {
+                        //解析数据结构
+                        return response || []
+                    }
+                },
+                transport: {
+                    read: {
+                        url: './data/list.json',
+                        type: 'get',
+                        data: function (e) {
+                            //输入框里的值
+                            console.log(e.filter.filters[0].value);
+                            return {
+                                //自定义字段
+                                keyword: e.filter.filters[0].value
+                        }
+                        }
+                    }
+                }
+            }
+        })
+
+        //获取控件实例
+        var instance2 = $('#ac2').data('kendoAutoComplete');
+        //获取值
+        instance2.value();
+
+    });
+</script>
+</body>
+
+</html>

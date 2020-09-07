@@ -1,0 +1,56 @@
+/* CSS Document */
+body, h1, h2, h3, h4, h5, h6, p, dl, dt, dd, ul, ol, li, fieldset, button, input, textarea, th, td { margin:0; padding:0;}
+body { font:12px/1.6 "微软雅黑", Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif; color:#4c4b4b; text-align:center; background-color:#fff;}
+ul, ol, li { list-style:none;}
+a { text-decoration:none; color:#4c4b4b;}
+a:hover { text-decoration:none;}
+fieldset, img { border:none;}
+em { font-style:normal;}
+
+/*--wjbox--*/
+.wjbox { text-align:left; padding:0px 15px;}
+
+.danxuan li { margin-bottom:30px;}
+.wjtit { font-size:18px; margin-bottom:10px;}
+.wjtit span { display:inline-block; background:url(../images/li_bg.png) no-repeat center center; width:47px; height:38px; line-height:38px; text-align:center; color:#fff; font-size:18px; margin-right:3px;}
+.wjcon { border:1px solid #ddd; border-radius:4px;}
+.wjcon dd { border-bottom:1px solid #ddd; font-size:18px; color:#747474;}
+.wjcon dd a { display:block; padding:8px;}
+.wjcon dd.last { border-bottom:none;}
+.wjcon dd span { display:inline-block; background:url(../images/li_dx.png) no-repeat center center; width:40px; height:40px; line-height:40px; vertical-align:middle; margin-right:5px;}
+.wjcon dd span.cur { background:url(../images/li_dxz.png) no-repeat center center;}
+.wjcon dd span.choice {background:url(../images/li_duoxz.png) no-repeat center center;}
+.wjcon dd span.unchoice {background: url(../images/li_duox.png) no-repeat center center;}
+.duoxuan li { margin-bottom:30px;}
+.duoxuan .wjcon dd span { background:url(../images/li_duox.png) no-repeat center center;}
+.duoxuan .wjcon dd span.cur { background:url(../images/li_duoxz.png) no-repeat center center;}
+
+.tishibox { position:fixed; z-index:999; top:0; left:0; height:100%; width:100%; background:url(../images/home_ad_bg.png) repeat 0 0;}
+.tishi { position:fixed; top:100px; width:100%;}
+.tishicon { text-align:center; padding:15px; position:relative;}
+.tishicon img { width:100%;}
+.ts_text { position:absolute; top:40px; width:100%;}
+.ts_text h2 { color:#0e86cc; margin-bottom:5px;}
+.ts_text p { color:#666; font-size:16px; margin-bottom:10px;}
+.ts_text a { display:inline-block; width:100px; height:46px; line-height:46px; background-color:#0e86cc; font-size:16px; color:#fff; border-radius:4px;}
+
+.jieguo { padding:0px; text-align:left;}
+.jieguo li { background:url(../images/jg_bg.png) repeat-x center bottom; min-height:50px; padding:20px 60px 10px 10px; font-size:16px; position:relative;}
+.jieguo li span { position:absolute; right:10px; top:15px; display:inline-block; width:47px; height:38px; line-height:38px; background:url(../images/li_bg.png) no-repeat 0 0; text-align:center; color:#fff;}
+
+.xuanze h2 { color:#777; margin-bottom:30px;}
+.xuanze li { position:relative; line-height:50px; padding:0 40px; margin-bottom:20px;}
+.xuanze li .xx { position:absolute; left:-10px; top:-10px; background:url(../images/jg_bg2.png) no-repeat center center; width:69px; height:69px; line-height:69px; text-align:center; font-size:24px; color:#e0edfc;}
+.xuanze li .cd { display:inline-block; height:50px;width:100px; background-color:#1998fa;}
+.xuanze li em { position:absolute; right:0; font-size:18px;}
+
+.wj_tijiao { text-align:center; padding-bottom:20px;}
+.wj_tijiao a { display:block; width:100%; height:46px; line-height:46px; background-color:#0e86cc; font-size:16px; color:#fff; border-radius:4px;}
+
+
+
+
+
+
+
+

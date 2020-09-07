@@ -1,0 +1,148 @@
+		#tb{
+			background-color:#F4F4F4;
+		}
+		#menuTable{
+			margin-top:150px;
+			border-style: solid;
+			border-width: 1px;
+			cellspacing:1px;
+			width:450px;	
+			text-align:center;
+		}
+		#menuTable td{
+			border: 3px solid #F4F4F4;
+			width:25%;
+			height: 30px;
+		}
+		#menuTable button{
+			background:#F4F4F4;
+			height: 25px;
+			width: 100px;
+			display:none;
+		}
+		#saveMenuConfig{
+			height: 30px;
+			width: 100px;
+		}
+		#saveMenuConfig{
+			height: 30px;
+			width: 100px;
+		}
+		#menuMaterialEdit{
+			background:#F4F4F4;
+			border-left-color:#d9dadc;
+			border-left-width:2px;
+			border-left-style:solid;
+			 width:50%;
+			 height:430px;
+			 margin-top:20px;
+			 margin-top:10px;
+			 padding-left:20px;
+			 float:left;
+			 
+		}
+
+		
+		hr{
+			margin-top:20px;
+			margin-bottom:20px;
+			width:90%;
+		}
+		#menuMaterialEdit button{
+			width:80px;
+			height:30px;
+			position:relative;
+			left:15%;
+			font-size:13px;
+		}
+		#menuMaterialEdit p{
+			margin-top:20px;
+			margin-left:20px;
+			font-size:13px;
+			margin-bottom:10px;
+		}
+		#menuMaterialEdit label{
+			margin-top:20px;
+			padding-left:20px;
+
+		}
+		.menuName{
+			margin-left:10px;
+			height:30px;
+			width:300px;
+			font-size:13px;
+		}
+		.contentRadio{
+			margin-left:5px;
+			cursor:pointer;
+		}
+		.hidden{
+			display:none;
+		}
+		.textarea{
+			align:center;
+			height:180px;
+			width:380px;
+			margin-left:35px;	
+		}
+		.upload{
+			height:100px;
+			width:500px;
+		}
+		#imageTable{
+		border:2px solid #F4F4F4;
+		background:#ffffff;
+		width:380px;
+		height:180px;
+		margin-top:20px;
+		margin-left:30px; 
+		cellspacing:0; 
+		cellpadding:0
+		
+		}
+		#imageTable td{
+		border:2px solid #F4F4F4;
+		align:center;
+		}
+		#imageTable button{
+		 width:60px;
+		}
+		#imageTable img{
+		 width:280px;
+		 height:180px;
+		}
+		#menuButtonMaterialContentImage input{
+			width:300px;
+		}
+		#menuButtonMaterialContentImage p{
+			margin-left:30px;
+		}
+		#newsTable{
+		border:2px solid #F4F4F4;
+		background:#ffffff;
+		width:550px;
+		height:180px;
+		margin-top:20px;
+		margin-left:30px; 
+		cellspacing:0; 
+		cellpadding:0
+		
+		}
+		#newsTable td{
+		border:2px solid #F4F4F4;
+		align:center;
+		}
+		#newsTable button{
+		 width:60px;
+		}
+		#newsTable img{
+		 width:280px;
+		 height:180px;
+		}
+		#menuButtonMaterialContentNews input{
+			width:300px;
+		}
+		#menuButtonMaterialContentNews p{
+			margin-left:30px;
+		}
+		

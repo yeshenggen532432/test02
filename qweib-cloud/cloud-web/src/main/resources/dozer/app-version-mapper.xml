@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<mappings xmlns="http://dozer.sourceforge.net"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://dozer.sourceforge.net
+          http://dozer.sourceforge.net/schema/beanmapping.xsd">
+    <mapping>
+        <class-a>com.qweib.cloud.service.basedata.domain.platform.AppVersionDetailDTO</class-a>
+        <class-b>com.qweib.cloud.core.domain.SysVersion</class-b>
+        <field>
+            <a>name</a>
+            <b>versionName</b>
+        </field>
+        <field>
+            <a>type</a>
+            <b>versionType</b>
+        </field>
+        <field>
+            <a>forcedUpdating</a>
+            <b>isQz</b>
+        </field>
+        <field>
+            <a>downloadUrl</a>
+            <b>versionUrl</b>
+        </field>
+        <field>
+            <a>content</a>
+            <b>versionContent</b>
+        </field>
+    </mapping>
+
+</mappings>

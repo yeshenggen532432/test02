@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:p="http://www.springframework.org/schema/p" xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!-- 配置静态资源，直接映射到对应的文件夹，不被DispatcherServlet处理 -->
+    <mvc:resources mapping="/favicon.ico" location="/resource/ico/"/>
+    <mvc:resources mapping="/resource/**" location="/resource/"/>
+    <mvc:resources mapping="/static/**" location="/static/"/>
+    <mvc:resources mapping="/upload/**" location="file:${upload.dir}/"/>
+    <mvc:resources mapping="/*.txt" location="file:${upload.dir}/checkWeixin/"/>
+
+    <util:properties id="properties" location="classpath*:properties/*.properties"/>
+    <context:property-placeholder properties-ref="properties"/>
+    <!--通知spring使用cglib而不是jdk的来生成代理方法 AOP可以拦截到Controller-->
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+    <!-- spring-mvc -->
+    <context:component-scan base-package="com.qweib.cloud,com.qweibframework.async.controller"
+                            use-default-filters="false">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+
+    <mvc:annotation-driven>
+        <mvc:message-converters>
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                <property name="objectMapper">
+                    <bean class="com.qweib.cloud.biz.system.support.MvcObjectMapper">
+                    </bean>
+                </property>
+            </bean>
+        </mvc:message-converters>
+        <mvc:argument-resolvers>
+            <bean class="org.springframework.data.web.PageableHandlerMethodArgumentResolver">
+                <constructor-arg ref="sortResolver"/>
+            </bean>
+            <!--<bean class="com.qweib.cloud.web.interceptor.TokenArgumentResolver"/>
+            <bean class="com.qweib.cloud.web.interceptor.ShopCompanyArgumentResolver"/>-->
+        </mvc:argument-resolvers>
+    </mvc:annotation-driven>
+
+    <bean id="sortResolver" class="org.springframework.data.web.SortHandlerMethodArgumentResolver"/>
+
+    <bean class="com.qweib.cloud.utils.SpringContextHolder"/>
+
+    <!--TODO decouple-->
+    <bean class="com.qweib.cloud.biz.mall.init.PayInitListener"/>
+
+    <!-- 文件上传配置 -->
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="UTF-8"/>
+        <property name="maxUploadSize" value="104857600"/>
+        <property name="maxInMemorySize" value="1638400"/>
+    </bean>
+
+    <!-- 视图配置 -->
+    <bean class="com.qweib.cloud.web.MultiVersionViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+        <property name="prefix" value="/WEB-INF/page/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <!--国际化处理器-->
+    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+        <property name="cookieName" value="X-qweib-locale"/>
+        <property name="defaultLocale" value="zh_CN"/>
+    </bean>
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basename" value="i18n.messages"/>
+    </bean>
+
+    <bean class="com.qweib.cloud.web.GlobalExceptionResolver">
+        <property name="exceptionMappings">
+            <props>
+                <prop key="java.lang.Exception">errors/500</prop>
+                <prop key="java.lang.Throwable">errors/500</prop>
+            </props>
+        </property>
+        <property name="statusCodes">
+            <props>
+                <prop key="errors/500">500</prop>
+            </props>
+        </property>
+    </bean>
+
+    <!-- 拦截器配置 -->
+    <mvc:interceptors>
+
+
+        <!--切换国际化拦截器-->
+        <bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+            <property name="paramName" value="lang"/>
+        </bean>
+        <mvc:interceptor>
+            <mvc:mapping path="/manager/**"/>
+            <mvc:mapping path="/login"/>
+            <bean class="com.qweib.cloud.web.interceptor.ViewResolverInterceptor"/>
+        </mvc:interceptor>
+
+        <!--动态数据源拦截器,参数为wid-->
+        <mvc:interceptor>
+            <mvc:mapping path="/checkWeixin.html"/>
+            <mvc:mapping path="/manager/checkWeixin.html"/>
+            <mvc:mapping path="/web/mini_weixin/login"/>
+            <mvc:mapping path="/web/shopDispatcherWid/**"/>
+            <mvc:mapping path="/manager/replyWeixinMessage.html"/>
+            <mvc:mapping path="/web/wxlogin"/><!-- 手机端进入接口需要登陆,带companyId-->
+            <mvc:mapping path="/manager/*.html"/>
+            <bean class="com.qweib.cloud.web.interceptor.DataSourceInterceptor"/>
+        </mvc:interceptor>
+
+        <mvc:interceptor>
+            <!-- 拦截/后的所有请求，包括静态资源文件 -->
+            <mvc:mapping path="/manager/**"/>
+            <mvc:exclude-mapping path="/static/**"/>
+            <mvc:exclude-mapping path="/manager/replyWeixinMessage.html"/><!--回复微信消息使用-->
+            <mvc:exclude-mapping path="/checkWeixin.html"/>
+            <mvc:exclude-mapping path="/manager/checkWeixin.html"/><!--微信授权回调使用-->
+            <mvc:exclude-mapping path="/manager/tologin"/>
+            <mvc:exclude-mapping path="/manager/login"/>
+            <mvc:exclude-mapping path="/manager/remote_control"/>
+            <mvc:exclude-mapping path="/upload/**"/>
+            <mvc:exclude-mapping path="/webservices/**"/>
+            <mvc:exclude-mapping path="/web/**"/>
+            <bean class="com.qweib.cloud.web.interceptor.BaseInterceptor"/>
+        </mvc:interceptor>
+        <!--手机端请求拦截器-->
+        <mvc:interceptor>
+            <mvc:mapping path="/web/**"/>
+
+            <mvc:exclude-mapping path="/web/mainWeb/toWeixinRegister"/>
+            <mvc:exclude-mapping path="/web/wxlogin"/><!-- 手机端进入接口需要登陆-->
+            <mvc:exclude-mapping path="/checkWeixin.html"/>
+            <mvc:exclude-mapping path="/web/shopDispatcherWid/**"/><!--手机端根据wid进入统一入口-->
+            <mvc:exclude-mapping path="/web/mainWeb/wxMallIndex"/><!--手机端根据wid进入统一入口-->
+
+            <!--<mvc:exclude-mapping path="/web/unRead"/>-->
+            <mvc:exclude-mapping path="/web/newCheckinlist2"/>
+            <mvc:exclude-mapping path="/web/poslogin"/>
+            <mvc:exclude-mapping path="/web/loginBak"/>
+            <mvc:exclude-mapping path="/web/login"/>
+            <mvc:exclude-mapping path="/web/login/standalone"/>
+            <mvc:exclude-mapping path="/web/reg"/>
+            <mvc:exclude-mapping path="/web/regnew"/>
+            <mvc:exclude-mapping path="/api/common/**"/>
+            <mvc:exclude-mapping path="/web/common/**"/>
+            <mvc:exclude-mapping path="/web/notifyUrl"/>
+            <mvc:exclude-mapping path="/web/changepwdTo"/>
+            <bean class="com.qweib.cloud.web.interceptor.AppUserAccessInterceptor"/>
+        </mvc:interceptor>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/node_redirect"/>
+            <mvc:exclude-mapping path="/resources/**"/>
+            <mvc:exclude-mapping path="/static/**"/>
+            <mvc:exclude-mapping path="/upload/**"/>
+            <bean class="com.qweib.cloud.web.interceptor.LogbackInterceptor"/>
+        </mvc:interceptor>
+        <mvc:interceptor>
+            <mvc:mapping path="/manager/**"/>
+            <mvc:mapping path="/web/**"/>
+            <mvc:exclude-mapping path="/static/**"/>
+            <mvc:exclude-mapping path="/manager/replyWeixinMessage.html"/><!--回复微信消息使用-->
+            <mvc:exclude-mapping path="/checkWeixin.html"/>
+            <mvc:exclude-mapping path="/manager/checkWeixin.html"/><!--微信授权回调使用-->
+            <mvc:exclude-mapping path="/web/shopDispatcherWid/**"/><!--手机端根据wid进入统一入口-->
+
+            <mvc:exclude-mapping path="/manager/tologin"/>
+            <mvc:exclude-mapping path="/manager/login"/>
+            <mvc:exclude-mapping path="/upload/**"/>
+            <mvc:exclude-mapping path="/webservices/**"/>
+            <bean class="com.qweib.cloud.web.interceptor.PageTokenInterceptor"/>
+        </mvc:interceptor>
+
+        <!--手机端登陆验证拦截器-->
+        <mvc:interceptor>
+            <!--<mvc:mapping path="/web/shopCart/**"/>
+            <mvc:mapping path="/web/mainWeb/myInfo/**"/>
+            -->
+            <mvc:mapping path="/web/shopBforderMobile/**"/>
+            <mvc:mapping path="/web/shopUserCenter/**"/>
+            <mvc:mapping path="/web/shopMemberHistory/**"/>
+            <mvc:mapping path="/web/shopRechargeMobile/**"/>
+            <mvc:mapping path="/web/shopMemberAddressMobile/**"/>
+            <mvc:mapping path="/web/shopMemberIo/**"/>
+            <mvc:mapping path="/web/shopWareFavoriteMobile/**"/>
+
+            <mvc:mapping path="/web/shopDiningOrder/**"/>
+            <mvc:mapping path="/web/shopDiningTable/**"/>
+
+            <mvc:exclude-mapping path="/web/shopBforderMobile/getReward"/>
+            <bean class="com.qweib.cloud.web.interceptor.ShopMobileResolver"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+
+    <bean class="com.qweib.cloud.biz.system.security.support.DefaultSecurityManager">
+
+    </bean>
+</beans>

@@ -1,0 +1,243 @@
+//批发价修改时
+function changePfPrice(value, field, model) {
+    var basePfRate = getRate.pf();// uglcw.ui.get('#basePfRate').value();
+    switch (field) {
+        case 'shopWareRate'://大单位系统可以为空不可以为0
+            if (value == 0) {
+                uglcw.ui.error('批发系统不能为0');
+                return false;
+            }
+            var shopWarePrice = null;
+            if (!value)
+                shopWarePrice = null;
+            else if (model.lsPrice) {
+                shopWarePrice = (model.lsPrice * (value / 100)).toFixed(2);//批发价大=原价*当前系数/100
+                changeTemp('shopWarePriceTemp', null, model)
+            }
+            if (value) {
+                if (model.lsPrice) {
+                    if (!model.shopWareSmallPrice) {//如果小单位未设置时
+                        changeTemp('shopWareSmallPriceTemp', (shopWarePrice / model.hsNum), model);//小单位零时价格=大单位价格/大小单位换算比例
+                    }
+                } else {
+                    uglcw.ui.error('原价(进)不能为空');
+                    return false;
+                }
+            } else {
+                if (model.lsPrice && basePfRate) {//原价和全局换算比例不为空时
+                    var shopWarePriceTemp = (model.lsPrice * basePfRate / 100).toFixed(2);
+                    changeTemp('shopWarePriceTemp', shopWarePriceTemp, model)
+                    if (!model.shopWareSmallPrice) {
+                        changeTemp('shopWareSmallPriceTemp', (shopWarePriceTemp / model.hsNum), model);//小单位价格=大单位价格/批发系数
+                    }
+                } else {
+                    if (!model.shopWareSmallPrice)
+                        changeTemp('shopWareSmallPriceTemp', null, model);
+                    else {
+                        changeTemp('shopWarePriceTemp', model.shopWareSmallPrice * model.hsNum, model);
+                    }
+                }
+            }
+            model.set('shopWarePrice', shopWarePrice);//修改大单位价格
+            changePrice2(value, field, model.wareId, function () {
+                changePrice2(model.shopWarePrice, 'shopWarePrice', model.wareId);
+            });
+            break;
+        case 'shopWarePrice':
+            if (value == 0) {
+                uglcw.ui.error('大单位金额不能为0');
+                return false;
+            }
+            if (!value) {//为空时当前系数为空
+                model.set('shopWareRate', null);
+            }
+
+            if (value) {
+                if (model.lsPrice) {
+                    var shopWareRate = (value / model.lsPrice * 100).toFixed(2);//当前系数=大单位价格/原价/100
+                    model.set('shopWareRate', shopWareRate);
+                    model.set('shopWarePriceTemp', null);
+                }
+                if (!model.shopWareSmallPrice) {//如果小单位未设置时
+                    changeTemp('shopWareSmallPriceTemp', (value / model.hsNum), model);
+                }
+            } else {
+                if (model.lsPrice && basePfRate && !model.shopWareSmallPrice) {
+                    var shopWarePriceTemp = (model.lsPrice * (basePfRate / 100)).toFixed(2);
+                    model.set('shopWarePriceTemp', shopWarePriceTemp);
+                    changeTemp('shopWareSmallPriceTemp', (model.shopWarePriceTemp / model.hsNum), model);
+                } else {
+                    if (model.shopWareSmallPrice) {
+                        changeTemp('shopWarePriceTemp', (model.shopWareSmallPrice * model.hsNum), model);
+                    } else {
+                        changeTemp('shopWareSmallPriceTemp', null, model);
+                    }
+                }
+            }
+            changePrice2(value, field, model.wareId, function () {
+                changePrice2(model.shopWareRate, 'shopWareRate', model.wareId);
+            });
+            break;
+        case 'shopWareSmallPrice':
+            model.set('shopWareSmallPriceTemp', null);
+            if (value) {
+                if (!model.shopWarePrice) {
+                    changeTemp('shopWarePriceTemp', (value * model.hsNum), model);
+                }
+            } else {//批发价小为空时
+                if (model.lsPrice && basePfRate && !model.shopWarePrice) {
+                    if (!model.shopWarePrice) {
+                        changeTemp('shopWarePriceTemp', (model.lsPrice * (basePfRate / 100)), model);
+                        changeTemp('shopWareSmallPriceTemp', (model.shopWarePriceTemp / model.hsNum), model);
+                    } else {
+                        changeTemp('shopWareSmallPriceTemp', (model.shopWarePrice / model.hsNum), model);
+                    }
+                } else {
+                    if (model.shopWarePrice) {
+                        changeTemp('shopWareSmallPriceTemp', (model.shopWarePrice / model.hsNum), model);
+                    } else {
+                        changeTemp('shopWarePriceTemp', null, model);
+                    }
+                }
+            }
+            changePrice2(value, field, model.wareId);
+            break;
+    }
+    //model.set('dirty', false);
+}
+
+function changeLsPrice(value, field, model) {
+    var baseLsRate = getRate.ls();// uglcw.ui.get('#baseLsRate').value();
+    switch (field) {
+        case 'shopWareLsRate'://大单位系统可以为空不可以为0
+            if (value == 0) {
+                uglcw.ui.error('零售系统不能为0');
+                return false;
+            }
+            var shopWareLsPrice = null;
+            if (!value)
+                shopWareLsPrice = null;
+            else if (model.lsPrice) {
+                shopWareLsPrice = (model.lsPrice * (value / 100)).toFixed(2);
+                changeTemp('shopWareLsPriceTemp', null, model)
+            }
+            if (value) {
+                if (model.lsPrice) {
+                    if (!model.shopWareSmallLsPrice) {//如果小单位未设置时
+                        changeTemp('shopWareSmallLsPriceTemp', (shopWareLsPrice / model.hsNum), model);
+                    }
+                } else {
+                    uglcw.ui.error('原价(进)不能为空');
+                    return false;
+                }
+            } else {
+                if (model.lsPrice && baseLsRate) {
+                    var shopWareLsPriceTemp = (model.lsPrice * baseLsRate / 100).toFixed(2);
+                    changeTemp('shopWareLsPriceTemp', shopWareLsPriceTemp, model);
+                    if (!model.shopWareSmallLsPrice) {
+                        changeTemp('shopWareSmallLsPriceTemp', (shopWareLsPriceTemp / model.hsNum), model);
+                    }
+                } else {
+                    if (!model.shopWareSmallLsPrice)
+                        changeTemp('shopWareSmallLsPriceTemp', null, model);
+                    else {
+                        changeTemp('shopWareLsPriceTemp', model.shopWareSmallLsPrice * model.hsNum, model);
+                    }
+                }
+            }
+            model.set('shopWareLsPrice', shopWareLsPrice);//修改大单位价格
+            changePrice2(value, field, model.wareId, function () {
+                changePrice2(model.shopWareLsPrice, 'shopWareLsPrice', model.wareId);
+            });
+            break;
+        case 'shopWareLsPrice':
+            if (value == 0) {
+                uglcw.ui.error('大单位金额不能为0');
+                return false;
+            }
+            if (!value) {
+                model.set('shopWareLsRate', null);
+            }
+            if (value) {
+                if (model.lsPrice) {
+                    var shopWareLsRate = (value / model.lsPrice * 100).toFixed(2);//当前系数=大单位价格/原价/100
+                    model.set('shopWareLsRate', shopWareLsRate);
+                    model.set('shopWareLsPriceTemp', null);
+                }
+                if (!model.shopWareSmallLsPrice) {//如果小单位未设置时
+                    changeTemp('shopWareSmallLsPriceTemp', (value / model.hsNum), model);
+                }
+            } else {
+                if (model.lsPrice && baseLsRate && !model.shopWareSmallLsPrice) {
+                    var shopWareLsPriceTemp = (model.lsPrice * (baseLsRate / 100)).toFixed(2);
+                    model.set('shopWareLsPriceTemp', shopWareLsPriceTemp);
+                    changeTemp('shopWareSmallLsPriceTemp', (model.shopWareLsPriceTemp / model.hsNum), model);
+                } else {
+                    if (model.shopWareSmallLsPrice) {
+                        changeTemp('shopWareLsPriceTemp', (model.shopWareSmallLsPrice * model.hsNum), model);
+                    } else {
+                        changeTemp('shopWareSmallLsPriceTemp', null, model);
+                    }
+                }
+            }
+            changePrice2(value, field, model.wareId, function () {
+                changePrice2(model.shopWareLsRate, 'shopWareLsRate', model.wareId);
+            });
+            break;
+        case 'shopWareSmallLsPrice':
+            model.set('shopWareSmallLsPriceTemp', null);
+            if (value) {
+                if (!model.shopWareLsPrice) {
+                    changeTemp('shopWareLsPriceTemp', (value * model.hsNum), model);
+                }
+            } else {
+                if (model.lsPrice && baseLsRate && !model.shopWareLsPrice) {
+                    if (!model.shopWareLsPrice) {
+                        changeTemp('shopWareLsPriceTemp', (model.lsPrice * (baseLsRate / 100)), model);
+                        changeTemp('shopWareSmallLsPriceTemp', (model.shopWareLsPriceTemp / model.hsNum), model);
+                    } else {
+                        changeTemp('shopWareSmallLsPriceTemp', (model.shopWareLsPrice / model.hsNum), model);
+                    }
+                } else {
+                    if (model.shopWareLsPrice) {
+                        changeTemp('shopWareSmallLsPriceTemp', (model.shopWareLsPrice / model.hsNum), model);
+                    } else {
+                        changeTemp('shopWareLsPriceTemp', null, model);
+                    }
+                }
+            }
+            changePrice2(value, field, model.wareId);
+            break;
+    }
+    //model.set('dirty', false);
+}
+
+function changeTemp(tempField, value, model) {
+    value = value ? parseFloat(value).toFixed(2) : null;
+    model.set(tempField, value);
+    var orignField = tempField.replace('Temp', '');
+    model.set(orignField, 1);
+    model.set(orignField, null);
+}
+
+function changePrice2(value, field, wareId, fun) {
+    $.ajax({
+        url: chagePriceUrl,
+        type: "post",
+        data: {
+            wareId: wareId,
+            field: field,
+            price: value
+        },
+        success: function (data) {
+            if (data == '1') {
+                if (fun) fun();
+                else
+                    uglcw.ui.success('修改成功');
+                return true;
+            } else {
+                uglcw.ui.toast("价格保存失败");
+            }
+        }
+    });
+}
