@@ -1,0 +1,11 @@
+image: registry.staging.qweib.com/qweib/maven-dind:3.6.0-jdk-8
+
+stages:
+  - deploy
+
+build:
+  stage: deploy
+  script: mvn -D skipTests clean deploy
+  tags:
+   - maven
+   - deploy
